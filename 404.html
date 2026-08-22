@@ -14,51 +14,102 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
-  <!-- ═══ CSS (3 ARCHIVOS CONSOLIDADOS) ═══ -->
+  <!-- ═══ CSS ═══ -->
   <link rel="stylesheet" href="/terminal-web/assets/css/global.css">
   <link rel="stylesheet" href="/terminal-web/assets/css/layout.css">
   <link rel="stylesheet" href="/terminal-web/assets/css/texture.css">
   <link rel="stylesheet" href="/terminal-web/assets/css/effects.css">
 
-
   <title>404 | Terminal — Página no encontrada</title>
 </head>
+
 <body>
 
   <!-- ═══ NAV ═══ -->
   <header class="navbar" role="banner">
     <nav class="nav-container" aria-label="Navegacion principal">
-      <a href="index.html" class="nav-brand">Terminal</a>
-      <button class="nav-toggle" id="nav-toggle-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu" type="button">[&lt;&gt;]</button>
+
+      <a href="/terminal-web/index.html" class="nav-brand">
+        Terminal
+      </a>
+
+      <button
+        class="nav-toggle"
+        id="nav-toggle-btn"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+        type="button"
+      >
+        [&lt;&gt;]
+      </button>
+
       <ul class="nav-links" id="nav-menu" role="menubar">
-        <li role="none"><a href="index.html" class="nav-link-underline" role="menuitem">Home</a></li>
+        <li role="none">
+          <a
+            href="/terminal-web/index.html"
+            class="nav-link-underline"
+            role="menuitem"
+          >
+            Home
+          </a>
+        </li>
       </ul>
+
     </nav>
   </header>
 
   <!-- ═══ CONTENIDO PRINCIPAL ═══ -->
-  <main class="content-section" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center;">
+  <main
+    class="content-section"
+    style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center;"
+  >
 
-    <div class="code-block fade-in" style="max-width: 500px; margin: 0 auto;">
+    <div
+      class="code-block fade-in"
+      style="max-width: 500px; margin: 0 auto;"
+    >
       <span class="comment"># Error 404 — Recurso no encontrado</span><br>
-      <span class="keyword">echo</span> <span class="string">"404: Page Not Found"</span><br>
-      <span class="function">cd</span> <span class="string">/home</span><br>
+      <span class="keyword">echo</span>
+      <span class="string">"404: Page Not Found"</span><br>
+      <span class="function">cd</span>
+      <span class="string">/home</span><br>
       <span class="comment"># Volviendo al directorio raíz...</span>
     </div>
 
-    <h1 class="hero-title fade-in" style="font-size: var(--text-3xl); margin-top: var(--space-lg); margin-bottom: var(--space-md);">404</h1>
+    <h1
+      class="hero-title fade-in"
+      style="font-size: var(--text-3xl); margin-top: var(--space-lg); margin-bottom: var(--space-md);"
+    >
+      404
+    </h1>
 
-    <p class="fade-in" style="color: var(--text-muted); font-size: var(--text-lg); max-width: 600px; margin-bottom: var(--space-xl);">
+    <p
+      class="fade-in"
+      style="color: var(--text-muted); font-size: var(--text-lg); max-width: 600px; margin-bottom: var(--space-xl);"
+    >
       El recurso que buscas no existe o ha sido movido a otro directorio.
     </p>
 
-    <div class="fade-in" style="display: flex; gap: var(--space-md); flex-wrap: wrap; justify-content: center;">
-      <a href="index.html" style="padding: var(--space-sm) var(--space-lg); border: var(--border-width) solid var(--border-primary); border-radius: var(--border-radius); color: var(--text-primary); text-decoration: none; transition: all var(--transition-fast); font-family: var(--font-mono); font-size: var(--text-sm);">
+    <div
+      class="fade-in"
+      style="display: flex; gap: var(--space-md); flex-wrap: wrap; justify-content: center;"
+    >
+
+      <a
+        href="/terminal-web/index.html"
+        style="padding: var(--space-sm) var(--space-lg); border: var(--border-width) solid var(--border-primary); border-radius: var(--border-radius); color: var(--text-primary); text-decoration: none; transition: all var(--transition-fast); font-family: var(--font-mono); font-size: var(--text-sm);"
+      >
         [ Ir al Home ]
       </a>
-      <a href="javascript:history.back()" style="padding: var(--space-sm) var(--space-lg); border: var(--border-width) solid var(--border-secondary); border-radius: var(--border-radius); color: var(--text-muted); text-decoration: none; transition: all var(--transition-fast); font-family: var(--font-mono); font-size: var(--text-sm);">
+
+      <a
+        href="javascript:history.back()"
+        style="padding: var(--space-sm) var(--space-lg); border: var(--border-width) solid var(--border-secondary); border-radius: var(--border-radius); color: var(--text-muted); text-decoration: none; transition: all var(--transition-fast); font-family: var(--font-mono); font-size: var(--text-sm);"
+      >
         [ Atrás ]
       </a>
+
     </div>
 
   </main>
@@ -70,8 +121,8 @@
   </footer>
 
   <!-- ═══ JAVASCRIPT ═══ -->
-  <script src="./assets/js/utils.js"></script>
-  <script src="./assets/js/animations.js"></script>
+  <script src="/terminal-web/assets/js/utils.js"></script>
+  <script src="/terminal-web/assets/js/animations.js"></script>
 
 </body>
 </html>
