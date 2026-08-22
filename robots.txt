@@ -1,0 +1,20 @@
+# IMPORTANTE: Reemplaza "example.com" en la URL del sitemap con tu dominio real
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /templates/
+Allow: /assets/
+
+Disallow: /assets/private/
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /admin/
+Disallow: /*?ref=
+Disallow: /*?utm_
+Disallow: /*?fbclid=
+
+# Crawler delay (opcional)
+Crawl-delay: 1
+
+# Sitemap
+Sitemap: https://example.com/sitemap.xml

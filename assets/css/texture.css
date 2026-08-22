@@ -1,0 +1,227 @@
+/* ═══════════════════════════════════════════════════════════════════
+   TEXTURE.CSS — HERO CON MATRIX CANVAS + SVG NETWORK ANIMADO
+   ═══════════════════════════════════════════════════════════════════ */
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  min-height: 500px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+}
+
+#matrix-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+#matrix-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-primary);
+}
+
+.hero-network {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+.net-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawLine 8s ease-in-out infinite;
+}
+
+.net-line:nth-child(1) { animation-delay: 0s; }
+.net-line:nth-child(2) { animation-delay: 0.5s; }
+.net-line:nth-child(3) { animation-delay: 1s; }
+.net-line:nth-child(4) { animation-delay: 1.5s; }
+.net-line:nth-child(5) { animation-delay: 2s; }
+.net-line:nth-child(6) { animation-delay: 2.5s; }
+.net-line:nth-child(7) { animation-delay: 3s; }
+.net-line:nth-child(8) { animation-delay: 3.5s; }
+.net-line:nth-child(9) { animation-delay: 4s; }
+.net-line:nth-child(10) { animation-delay: 4.5s; }
+
+@keyframes drawLine {
+  0%, 100% { stroke-dashoffset: 1000; opacity: 0; }
+  10%, 90% { stroke-dashoffset: 0; opacity: 0.3; }
+}
+
+.node {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.node-active {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { r: 3; opacity: 0.2; }
+  50% { r: 5; opacity: 0.5; }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  width: 90%;
+  max-width: 800px;
+}
+
+.hero-title {
+  font-family: var(--font-title);
+  font-size: clamp(2rem, 8vw, 4rem);
+  color: var(--accent-primary);
+  font-weight: bold;
+  margin-bottom: var(--space-md);
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px var(--accent-primary);
+}
+
+.hero-subtitle {
+  font-family: var(--font-mono);
+  font-size: clamp(0.9rem, 2vw, 1.3rem);
+  color: var(--text-muted);
+  margin-bottom: var(--space-md);
+}
+
+.hero-description {
+  font-family: var(--font-mono);
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+}
+
+.hero-reserved {
+  margin-top: var(--space-lg);
+}
+
+.hero-reserved-placeholder {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.title-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 10px var(--accent-primary), 0 0 20px var(--accent-primary);
+  }
+  50% {
+    text-shadow: 0 0 20px var(--accent-primary), 0 0 30px var(--accent-primary), 0 0 40px var(--accent-primary);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-in forwards;
+  opacity: 0;
+}
+
+.slide-left {
+  animation: slideLeft 0.8s ease-out forwards;
+}
+
+.slide-right {
+  animation: slideRight 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.hero-title { animation-delay: 0.2s; }
+.hero-subtitle { animation-delay: 0.4s; }
+.hero-description { animation-delay: 0.6s; }
+.hero-reserved { animation-delay: 0.8s; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .hero {
+    height: 50vh;
+    min-height: 300px;
+    margin-top: 60px;
+  }
+
+  .hero-title {
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(0.8rem, 1.5vw, 1rem);
+  }
+
+  .hero-description {
+    font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    height: 45vh;
+    min-height: 280px;
+    margin-top: 50px;
+  }
+
+  .hero-title {
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-subtitle {
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-description {
+    line-height: 1.4;
+    margin-bottom: 1rem;
+  }
+
+  .hero-reserved-placeholder {
+    font-size: 0.7rem;
+  }
+}

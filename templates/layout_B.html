@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;">
+
+  <title>Blog | Terminal</title>
+  <meta name="description" content="Blog de recursos educativos ASIR">
+  <link rel="canonical" href="https://terminal.dev/blog.html">
+  <meta name="theme-color" content="#050505">
+
+  <meta property="og:title" content="Blog | Terminal">
+  <meta property="og:description" content="Blog de recursos educativos ASIR">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://terminal.dev/blog.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/blog.css">
+</head>
+<body>
+
+  <!-- ═══ NAVEGACION ═══ -->
+  <header class="navbar" role="banner">
+    <nav class="nav-container" aria-label="Navegacion principal">
+      <a href="../index.html" class="nav-brand">Terminal</a>
+      <button class="nav-toggle" id="nav-toggle-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu" type="button">[&lt;&gt;]</button>
+      <ul class="nav-links" id="nav-menu" role="menubar">
+        <li role="none"><a href="../index.html" role="menuitem">Home</a></li>
+
+        <!-- ███████ DROPDOWN CURSO A ███████ -->
+        <li role="none" class="dropdown">
+          <a href="#" role="menuitem">CURSO A ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="actividad-01.html">Actividad 1</a></li>
+            <li><a href="actividad-02.html">Actividad 2</a></li>
+            <li><a href="actividad-03.html">Actividad 3</a></li>
+          </ul>
+        </li>
+
+        <!-- ███████ DROPDOWN CURSO B ███████ -->
+        <li role="none" class="dropdown">
+          <a href="#" role="menuitem">CURSO B ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="actividad-01.html">Actividad 1</a></li>
+            <li><a href="actividad-02.html">Actividad 2</a></li>
+          </ul>
+        </li>
+
+        <!-- <li role="none"><a href="#" role="menuitem">#</a></li> -->
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ═══ CONTENIDO PRINCIPAL ═══ -->
+
+  <main class="content-section" role="main">
+
+    <article>
+
+      <!-- ███████ ENCABEZADO ███████ -->
+      <header style="margin-bottom: var(--space-xl);" class="fade-in">
+        <h1 class="hero-title" style="font-size: var(--text-2xl);">Titulo del Post</h1>
+        <div class="status-bar">
+          <span><span class="dot info"></span> 15/01/2025</span>
+          <span><span class="tag">Categoria</span></span>
+          <span><span class="tag tag-info">Etiqueta</span></span>
+        </div>
+        <p style="color: var(--text-muted); font-size: var(--text-lg); margin-top: var(--space-md);">
+          Subtitulo o descripcion breve.
+        </p>
+      </header>
+
+      <!-- ███████ LAYOUT 2 COLUMNAS ███████ -->
+      <div class="two-column-layout">
+
+        <!-- ▶️ COLUMNA IZQUIERDA (70%) -->
+        <div class="col-main">
+          <h2>Contenido principal</h2>
+          <p>Aquí va el texto principal, explicaciones largas, desarrollo del tema.</p>
+
+          <!-- ███████ BLOQUE DE CODIGO CON COPIAR ███████ -->
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <span class="code-lang">bash</span>
+              <button class="copy-btn">[Copiar]</button>
+            </div>
+            <div class="code-block card-hover">
+              <span class="comment"># Codigo de ejemplo</span><br>
+              <span class="keyword">echo</span> <span class="string">"Hola mundo"</span>
+            </div>
+          </div>
+
+          <p>Mas contenido en la columna principal. Parrafos largos, listas, etc.</p>
+
+          <ul class="terminal-list">
+            <li>Punto importante 1</li>
+            <li>Punto importante 2</li>
+            <li>Punto importante 3</li>
+          </ul>
+
+          <blockquote>
+            "Cita destacada dentro del contenido principal."
+          </blockquote>
+
+          <!-- ███████ OTRO BLOQUE DE CODIGO ███████ -->
+          <div class="code-block-wrapper">
+            <div class="code-block-header">
+              <span class="code-lang">powershell</span>
+              <button class="copy-btn">[Copiar]</button>
+            </div>
+            <div class="code-block card-hover">
+              <span class="comment"># Comando PowerShell</span><br>
+              Get-Process | Where-Object { $_.CPU -gt 10 }
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ▶️ COLUMNA DERECHA (30%) -->
+        <div class="col-side fade-in">
+          <h3>Resumen rapido</h3>
+          <ul class="terminal-list">
+            <li><strong>Duracion:</strong> 2 horas</li>
+            <li><strong>Nivel:</strong> Basico</li>
+            <li><strong>Prerrequisitos:</strong> Ninguno</li>
+          </ul>
+
+          <h3>Recursos</h3>
+          <ul class="terminal-list">
+            <li><a href="#">Guia PDF</a></li>
+            <li><a href="#">Repositorio</a></li>
+            <li><a href="#">Video tutorial</a></li>
+          </ul>
+
+          <h3>Tags</h3>
+          <div>
+            <span class="tag">linux</span>
+            <span class="tag">bash</span>
+            <span class="tag">scripting</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ███████ PIE DEL POST ███████ -->
+      <footer style="margin-top: var(--space-xl); padding-top: var(--space-lg); border-top: var(--border-width) solid var(--border-secondary); text-align: center; color: var(--text-dim); font-size: var(--text-sm);" class="fade-in">
+        <p>Publicado el 15 de enero de 2025</p>
+        <p><a href="index.html" style="color: var(--text-muted); text-decoration: underline;">← Volver al inicio</a></p>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer" role="contentinfo">
+    <p class="footer-brand">Terminal</p>
+    <p class="footer-copy">2025 Terminal — Recursos ASIR</p>
+  </footer>
+
+  <script nonce="terminal2026" src="../assets/js/utils.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.copy-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var wrapper = this.closest('.code-block-wrapper');
+          var codeBlock = wrapper.querySelector('.code-block');
+          var text = codeBlock.textContent.trim();
+          navigator.clipboard.writeText(text).then(function() {
+            var original = this.textContent;
+            this.textContent = '[Copiado]';
+            setTimeout(function() {
+              this.textContent = original;
+            }.bind(this), 2000);
+          }.bind(this)).catch(function() {
+            alert('No se pudo copiar.');
+          });
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

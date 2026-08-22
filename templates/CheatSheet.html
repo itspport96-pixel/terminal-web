@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'nonce-terminal2026'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; frame-ancestors 'none';">
+
+  <title>Cheat Sheet | Terminal</title>
+  <meta name="description" content="Cheat Sheet de recursos ASIR">
+  <link rel="canonical" href="https://terminal.dev/cheatsheet.html">
+  <meta name="theme-color" content="#050505">
+
+  <meta property="og:title" content="Cheat Sheet | Terminal">
+  <meta property="og:description" content="Cheat Sheet de recursos ASIR">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://terminal.dev/cheatsheet.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/cheatsheet.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+</head>
+<body>
+
+  <!-- ═══ NAVEGACION ═══ -->
+  <header class="navbar" role="banner">
+    <nav class="nav-container" aria-label="Navegacion principal">
+      <a href="../index.html" class="nav-brand">Terminal</a>
+      <button class="nav-toggle" id="nav-toggle-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu" type="button">[&lt;&gt;]</button>
+      <ul class="nav-links" id="nav-menu" role="menubar">
+        <li role="none"><a href="../index.html" role="menuitem">Home</a></li>
+        <li role="none"><a href="cheatsheet.html" class="active" role="menuitem" aria-current="page">Cheat Sheet</a></li>
+        <li role="none"><a href="acerca.html" role="menuitem">Acerca</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ═══ CONTENIDO PRINCIPAL ═══ -->
+  <main class="cheatsheet-wrapper fade-in" role="main">
+
+    <article>
+
+      <!-- ███████ ENCABEZADO ███████ -->
+      <header class="cheatsheet-header fade-scale-in">
+        <h1 class="hero-title" style="font-size: var(--text-2xl);">Cheat Sheet</h1>
+        <p style="color: var(--text-muted); font-size: var(--text-lg); margin-top: var(--space-md);">
+          Titulo del Cheat Sheet / Descripcion breve
+        </p>
+        <div class="status-bar">
+          <span><span class="dot info"></span> 15/01/2025</span>
+          <span><span class="tag">Referencia</span></span>
+          <span><span class="tag tag-info">Comandos</span></span>
+        </div>
+      </header>
+
+      <!-- ███████ CATEGORIA 1 ███████ -->
+      <section class="cheat-section fade-in">
+        <h2>Categoria 1</h2>
+        <p class="cheat-desc">Descripcion de la categoria.</p>
+
+        <div class="cheat-grid">
+          <!-- ▶️ TARJETA 1 -->
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">comando</span>
+              <span class="cheat-tag">tag</span>
+            </div>
+            <p class="cheat-desc">Descripcion del comando.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>comando -opcion argumento</code>
+            </div>
+          </div>
+
+          <!-- ▶️ TARJETA 2 -->
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">otro_comando</span>
+              <span class="cheat-tag">tag</span>
+            </div>
+            <p class="cheat-desc">Descripcion del comando.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>otro_comando -opcion valor</code>
+            </div>
+          </div>
+
+          <!-- ▶️ TARJETA 3 -->
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">tercer_comando</span>
+              <span class="cheat-tag">tag</span>
+            </div>
+            <p class="cheat-desc">Descripcion del comando.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>tercer_comando -opcion</code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ███████ CATEGORIA 2 ███████ -->
+      <section class="cheat-section fade-in">
+        <h2>Categoria 2</h2>
+        <p class="cheat-desc">Descripcion de la categoria.</p>
+
+        <div class="cheat-grid">
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">comando_a</span>
+              <span class="cheat-tag">tag</span>
+            </div>
+            <p class="cheat-desc">Descripcion.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>comando_a -opcion</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">comando_b</span>
+              <span class="cheat-tag">tag</span>
+            </div>
+            <p class="cheat-desc">Descripcion.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>comando_b -opcion</code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ███████ CATEGORIA 3 (Tabla) ███████ -->
+      <section class="cheat-section fade-in">
+        <h2>Categoria 3 (Tabla)</h2>
+        <p class="cheat-desc">Comparativa o listado en tabla.</p>
+
+        <div class="cheat-table-wrapper">
+          <table class="cheat-table">
+            <thead>
+              <tr>
+                <th>Comando</th>
+                <th>Descripcion</th>
+                <th>Ejemplo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>comando_1</code></td>
+                <td>Descripcion del comando 1</td>
+                <td><code>comando_1 -opcion</code></td>
+              </tr>
+              <tr>
+                <td><code>comando_2</code></td>
+                <td>Descripcion del comando 2</td>
+                <td><code>comando_2 -opcion</code></td>
+              </tr>
+              <tr>
+                <td><code>comando_3</code></td>
+                <td>Descripcion del comando 3</td>
+                <td><code>comando_3 -opcion</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ███████ PIE ███████ -->
+      <footer class="cheatsheet-footer fade-in">
+        <p><a href="../index.html" style="color: var(--text-muted); text-decoration: underline;">← Volver al inicio</a></p>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer" role="contentinfo">
+    <p class="footer-brand">Terminal</p>
+    <p class="footer-copy">2025 Terminal — Recursos ASIR</p>
+  </footer>
+
+  <script nonce="terminal2026" src="../assets/js/utils.js"></script>
+  <script nonce="terminal2026" src="../assets/js/animations.js"></script>
+
+</body>
+</html>
