@@ -504,3 +504,111 @@ article a:hover {
     font-size: var(--text-lg);
   }
 }
+
+/* ███████ ASIDE STICKY — ESQUINA SUPERIOR DERECHA ███████ */
+.sticky-aside {
+  position: fixed;
+  top: calc(var(--nav-height) + 12px);
+  right: 16px;
+  z-index: 50;
+  background: rgba(5, 5, 5, 0.85);
+  backdrop-filter: blur(8px);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--border-radius);
+  padding: var(--space-sm) var(--space-md);
+  min-width: 180px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  box-shadow: var(--glow-soft);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: auto;
+}
+
+.sticky-aside-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.sticky-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: var(--border-width) solid var(--border-secondary);
+  padding-bottom: var(--space-xs);
+  margin-bottom: var(--space-xs);
+}
+
+.sticky-title {
+  color: var(--text-primary);
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.sticky-status {
+  font-size: var(--text-xs);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dot-green {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00ff88;
+  box-shadow: 0 0 6px #00ff88;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.sticky-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sticky-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 0;
+  border-bottom: var(--border-width) solid var(--border-secondary);
+}
+
+.sticky-list li:last-child {
+  border-bottom: none;
+}
+
+.sticky-label {
+  color: var(--text-dim);
+}
+
+.sticky-divider {
+  border-top: var(--border-width) solid var(--border-secondary);
+  margin: var(--space-xs) 0;
+}
+
+.sticky-list a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+  display: block;
+  width: 100%;
+}
+
+.sticky-list a:hover {
+  color: var(--accent-bright);
+}
+
+/* Responsive: ocultar en móviles */
+@media (max-width: 768px) {
+  .sticky-aside {
+    display: none;
+  }
+}

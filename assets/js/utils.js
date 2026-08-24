@@ -277,3 +277,42 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+// ─── STICKY ASIDE — DATOS DINÁMICOS ───
+(function() {
+  'use strict';
+
+  function updateUptime() {
+    const start = Date.now();
+    setInterval(() => {
+      const elapsed = Math.floor((Date.now() - start) / 1000);
+      const d = Math.floor(elapsed / 86400);
+      const h = Math.floor((elapsed % 86400) / 3600);
+      const m = Math.floor((elapsed % 3600) / 60);
+      const uptimeEl = document.getElementById('uptime');
+      if (uptimeEl) uptimeEl.textContent = `${d}d ${h}h ${m}m`;
+    }, 60000);
+  }
+
+  function updateLoad() {
+    setInterval(() => {
+      const load = (Math.random() * 1.5).toFixed(2);
+      const loadEl = document.getElementById('load');
+      if (loadEl) loadEl.textContent = load;
+    }, 5000);
+  }
+
+  function updateMemory() {
+    setInterval(() => {
+      const mem = Math.floor(64 + Math.random() * 192);
+      const memEl = document.getElementById('memory');
+      if (memEl) memEl.textContent = mem + 'MB';
+    }, 8000);
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    updateUptime();
+    updateLoad();
+    updateMemory();
+  });
+})();
