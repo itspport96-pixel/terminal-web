@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;">
+
+  <title>Instalación de Playwright en Debian | Terminal</title>
+  <meta name="description" content="Instalación y configuración manual de Playwright con Python y Chromium en Debian Linux.">
+  <link rel="canonical" href="https://terminal.dev/tutoriales/playwright-debian.html">
+  <meta name="theme-color" content="#050505">
+
+  <meta property="og:title" content="Instalación de Playwright en Debian | Terminal">
+  <meta property="og:description" content="Tutorial completo de instalación y verificación de Playwright con Python y Chromium en Debian Linux.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://terminal.dev/tutoriales/playwright-debian.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/effects.css">
+</head>
+<body>
+
+  <!-- ═══ NAVEGACION ═══ -->
+  <header class="navbar" role="banner">
+    <nav class="nav-container" aria-label="Navegacion principal">
+      <a href="../index.html" class="nav-brand">Terminal</a>
+      <button class="nav-toggle" id="nav-toggle-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu" type="button">[&lt;&gt;]</button>
+      <ul class="nav-links" id="nav-menu" role="menubar">
+        <li role="none"><a href="../index.html" role="menuitem">Home</a></li>
+
+        <!-- ███████ DROPDOWN CURSO A ███████ -->
+        <li role="none" class="dropdown">
+          <a href="#" role="menuitem">CURSO A</a>
+          <ul class="dropdown-menu">
+          </ul>
+        </li>
+
+        <!-- <li role="none"><a href="#" role="menuitem">#</a></li> -->
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ═══ ASIDE STICKY (información de sistema) ═══ -->
+  <aside class="sticky-aside" role="complementary" aria-label="Información del sistema">
+    <div class="sticky-aside-inner">
+      <div class="sticky-header">
+        <span class="sticky-title">[system]</span>
+        <span class="sticky-status">
+          <span class="dot-green"></span> online
+        </span>
+      </div>
+      <ul class="sticky-list">
+        <li><span class="sticky-label">uptime</span> <span id="uptime">0d 0h 0m</span></li>
+        <li><span class="sticky-label">users</span> <span id="users">1</span></li>
+        <li><span class="sticky-label">load</span> <span id="load">0.00</span></li>
+        <li><span class="sticky-label">memory</span> <span id="memory">128MB</span></li>
+      </ul>
+      <div class="sticky-divider"></div>
+      <ul class="sticky-list">
+        <li><a href="../index.html">↳ home</a></li>
+        <li><a href="#seccion-1">↳ índice tutorial</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- ═══ CONTENIDO PRINCIPAL ═══ -->
+  <main class="tutorial-wrapper" role="main">
+
+    <!-- ███████ INDICE STICKY ███████ -->
+    <aside class="toc-sidebar">
+      <nav class="toc-container">
+        <h3>Índice</h3>
+        <ul class="toc-list">
+          <li><a href="#seccion-1">1. Preparar Debian</a></li>
+          <li><a href="#seccion-2">2. Privilegios administrativos</a></li>
+          <li><a href="#seccion-3">3. Python y herramientas</a></li>
+          <li><a href="#seccion-4">4. Entorno virtual</a></li>
+          <li><a href="#seccion-5">5. Instalar Playwright</a></li>
+          <li><a href="#seccion-6">6. Instalar Chromium</a></li>
+          <li><a href="#seccion-7">7. Dependencias de Chromium</a></li>
+          <li><a href="#seccion-8">8. Verificar permisos</a></li>
+          <li><a href="#seccion-9">9. Verificar Chromium</a></li>
+          <li><a href="#seccion-10">10. Entorno gráfico</a></li>
+          <li><a href="#seccion-11">11. Prueba de Chromium</a></li>
+          <li><a href="#seccion-12">12. Prueba con Playwright</a></li>
+          <li><a href="#seccion-13">13. Diagnóstico</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- ███████ CONTENIDO PRINCIPAL ███████ -->
+    <article class="tutorial-content">
+
+      <!-- ▶️ ENCABEZADO -->
+      <header class="tutorial-header">
+        <h1 class="hero-title" style="font-size: var(--text-2xl);">Instalación de Playwright en Debian Linux</h1>
+        <div class="status-bar">
+          <span><span class="dot info"></span> 24/08/2026</span>
+          <span><span class="tag">Tutorial</span></span>
+          <span><span class="tag tag-info">Nivel: Intermedio</span></span>
+        </div>
+        <p style="color: var(--text-muted); font-size: var(--text-lg); margin-top: var(--space-md);">
+          Instalación y configuración manual de Playwright con Python y Chromium en Debian Linux. El objetivo es comprender cada componente del entorno y aprender a verificarlo de forma independiente.
+        </p>
+      </header>
+
+      <!-- ███████ SECCION 1 ███████ -->
+      <section id="seccion-1">
+        <h2>1. Preparar Debian</h2>
+        <p>Antes de instalar cualquier componente debemos identificar exactamente qué sistema operativo estamos utilizando. Esto permite comprobar que las instrucciones corresponden al entorno real.</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            <span class="comment"># Mostrar información del sistema</span><br>
+            cat /etc/os-release
+          </div>
+        </div>
+
+        <p>En Debian 13 deberíamos encontrar información similar a:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            PRETTY_NAME="Debian GNU/Linux 13 (trixie)"<br>
+            ID=debian<br>
+            VERSION_ID="13"
+          </div>
+        </div>
+
+        <p>También verificamos el usuario actual:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            whoami
+          </div>
+        </div>
+
+        <p>Este punto es importante porque Playwright y Python se instalarán dentro del usuario que ejecutará posteriormente las automatizaciones.</p>
+      </section>
+
+      <!-- ███████ SECCION 2 ███████ -->
+      <section id="seccion-2">
+        <h2>2. Verificar privilegios administrativos</h2>
+        <p>Algunas operaciones requieren modificar el sistema operativo. Sin embargo, Playwright no debe instalarse como root.</p>
+        <p>Comprobamos que nuestro usuario dispone de privilegios mediante sudo:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            sudo -v
+          </div>
+        </div>
+
+        <p>La instalación quedará separada en dos niveles:</p>
+        <ul class="terminal-list">
+          <li>Python, virtualenv, Playwright y Chromium pertenecen al usuario.</li>
+          <li>Las dependencias del sistema se instalan mediante sudo.</li>
+          <li>No ejecutaremos pip como root.</li>
+        </ul>
+      </section>
+
+      <!-- ███████ SECCION 3 ███████ -->
+      <section id="seccion-3">
+        <h2>3. Instalar Python y herramientas necesarias</h2>
+        <p>Playwright para Python necesita un intérprete Python y un entorno virtual. Debian proporciona estos componentes mediante sus paquetes oficiales.</p>
+        <p>Primero actualizamos la información de los repositorios:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            sudo apt update
+          </div>
+        </div>
+
+        <p>Después instalamos Python, pip y el módulo necesario para crear entornos virtuales:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            sudo apt install python3 python3-venv python3-pip
+          </div>
+        </div>
+
+        <p>Verificamos la instalación:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            python3 --version<br>
+            pip3 --version
+          </div>
+        </div>
+      </section>
+
+      <!-- ███████ SECCION 4 ███████ -->
+      <section id="seccion-4">
+        <h2>4. Crear el entorno virtual</h2>
+        <p>No instalaremos Playwright directamente en el Python global del sistema. Crearemos un entorno virtual independiente para mantener aisladas sus dependencias.</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            python3 -m venv ~/playwright-env
+          </div>
+        </div>
+
+        <p>El entorno se crea en:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            /home/administrator/playwright-env
+          </div>
+        </div>
+
+        <p>Ahora lo activamos:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            source ~/playwright-env/bin/activate
+          </div>
+        </div>
+
+        <p>El prompt debe mostrar el nombre del entorno:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            (playwright-env) administrator@CLI01-DBNLNX:~$
+          </div>
+        </div>
+
+        <p>Finalmente comprobamos qué Python estamos utilizando:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            which python
+          </div>
+        </div>
+      </section>
+
+      <!-- ███████ SECCION 5 ███████ -->
+      <section id="seccion-5">
+        <h2>5. Instalar Playwright para Python</h2>
+        <p>Con el entorno virtual activo instalamos Playwright mediante pip. La instalación queda contenida dentro de nuestro entorno virtual.</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            pip install playwright
+          </div>
+        </div>
+
+        <p>Comprobamos la versión instalada:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            playwright --version
+          </div>
+        </div>
+      </section>
+
+      <!-- ███████ SECCION 6 ███████ -->
+      <section id="seccion-6">
+        <h2>6. Instalar Chromium</h2>
+        <p>Playwright no depende necesariamente del navegador instalado por el sistema. Descarga y administra las versiones de navegador que corresponden a su propia versión.</p>
+        <p>Instalamos Chromium:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            playwright install chromium
+          </div>
+        </div>
+
+        <p>Podemos consultar qué instalaría Playwright sin realizar ninguna modificación:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            playwright install --dry-run
+          </div>
+        </div>
+
+        <p>Los navegadores administrados por Playwright se almacenan normalmente dentro de:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            ~/.cache/ms-playwright/
+          </div>
+        </div>
+      </section>
+
+      <!-- ███████ SECCION 7 ███████ -->
+      <section id="seccion-7">
+        <h2>7. Instalar dependencias de Chromium</h2>
+        <p>Descargar Chromium no garantiza que pueda ejecutarse. El navegador necesita determinadas bibliotecas y componentes del sistema Linux.</p>
+        <p>Playwright proporciona un mecanismo para instalar las dependencias necesarias:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            sudo playwright install-deps chromium
+          </div>
+        </div>
+
+        <p>Aquí sí utilizamos sudo, porque estamos instalando paquetes pertenecientes al sistema Debian.</p>
+        <p>Playwright se instala en el entorno virtual del usuario; las dependencias nativas necesarias para ejecutar Chromium pertenecen al sistema operativo.</p>
+      </section>
+
+      <!-- ███████ SECCION 8 ███████ -->
+      <section id="seccion-8">
+        <h2>8. Verificar permisos</h2>
+        <p>Los archivos creados dentro del HOME deben pertenecer al usuario que ejecutará Playwright.</p>
+        <p>Buscamos elementos que tengan otro propietario:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            find "$HOME" -maxdepth 2 \( ! -user "$USER" -o ! -group "$USER" \) -ls
+          </div>
+        </div>
+
+        <p>Esta comprobación es especialmente importante cuando anteriormente se han ejecutado comandos de Chromium o Playwright como root.</p>
+      </section>
+
+      <!-- ███████ SECCION 9 ███████ -->
+      <section id="seccion-9">
+        <h2>9. Verificar Chromium directamente</h2>
+        <p>Antes de involucrar a Playwright comprobamos que el navegador descargado puede ejecutarse por sí mismo.</p>
+        <p>Localizamos el binario:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            find ~/.cache/ms-playwright -type f -path '*/chrome-linux64/chrome'
+          </div>
+        </div>
+
+        <p>Comprobamos la versión:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            ~/.cache/ms-playwright/chromium-*/chrome-linux64/chrome --version
+          </div>
+        </div>
+      </section>
+
+      <!-- ███████ SECCION 10 ███████ -->
+      <section id="seccion-10">
+        <h2>10. Comprobar el entorno gráfico</h2>
+        <p>Una ejecución con headless=False necesita acceso a una sesión gráfica. Por eso comprobamos las variables y servicios relacionados con la sesión del usuario.</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            echo "$DISPLAY"<br>
+            echo "$XDG_SESSION_TYPE"
+          </div>
+        </div>
+
+        <p>También comprobamos el bus D-Bus del usuario:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            systemctl --user status dbus --no-pager
+          </div>
+        </div>
+
+        <p>El objetivo es confirmar que existe una sesión gráfica funcional antes de intentar ejecutar el navegador en modo visible.</p>
+      </section>
+
+      <!-- ███████ SECCION 11 ███████ -->
+      <section id="seccion-11">
+        <h2>11. Primera prueba de Chromium</h2>
+        <p>Ejecutamos directamente el navegador descargado por Playwright. Esta prueba permite aislar Chromium de Playwright.</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            ~/.cache/ms-playwright/chromium-*/chrome-linux64/chrome --no-sandbox --disable-gpu --user-data-dir=/tmp/chrome-test
+          </div>
+        </div>
+
+        <p>Si Chromium permanece ejecutándose, podemos continuar con la prueba de Playwright.</p>
+        <p>En esta fase no estamos probando automatización. Estamos comprobando únicamente que el navegador puede arrancar correctamente en Debian.</p>
+      </section>
+
+      <!-- ███████ SECCION 12 ███████ -->
+      <section id="seccion-12">
+        <h2>12. Primera prueba con Playwright</h2>
+        <p>Con Chromium funcionando pasamos finalmente a la API de Playwright.</p>
+        <p>Ejecutamos una prueba mínima que abre Chromium, crea una página y navega hasta Google.</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            python -c "from playwright.sync_api import sync_playwright; p=sync_playwright().start(); b=p.chromium.launch(headless=False,args=['--disable-gpu']); page=b.new_page(); page.goto('https://google.com'); page.wait_for_timeout(15000)"
+          </div>
+        </div>
+
+        <p>La cadena de ejecución es:</p>
+        <ul class="terminal-list">
+          <li>Python inicia Playwright.</li>
+          <li>Playwright inicia Chromium.</li>
+          <li>Se crea un contexto de navegador.</li>
+          <li>Se crea una página.</li>
+          <li>La página navega hacia Google.</li>
+          <li>El navegador permanece abierto durante 15 segundos.</li>
+        </ul>
+        <p>Si Chromium se abre y Google carga correctamente, el entorno básico de automatización gráfica está operativo.</p>
+      </section>
+
+      <!-- ███████ SECCION 13 ███████ -->
+      <section id="seccion-13">
+        <h2>13. Generar información de diagnóstico</h2>
+        <p>Un entorno de automatización debe poder describirse técnicamente. Esto permite diagnosticar problemas sin reconstruir manualmente toda la instalación.</p>
+        <p>Generamos un pequeño informe con la información fundamental:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">bash</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            echo "===== SYSTEM =====" > ~/playwright-environment.txt<br>
+            cat /etc/os-release >> ~/playwright-environment.txt<br>
+            uname -a >> ~/playwright-environment.txt<br>
+            echo "===== USER =====" >> ~/playwright-environment.txt<br>
+            whoami >> ~/playwright-environment.txt<br>
+            id >> ~/playwright-environment.txt<br>
+            echo "===== PYTHON =====" >> ~/playwright-environment.txt<br>
+            python3 --version >> ~/playwright-environment.txt<br>
+            python --version >> ~/playwright-environment.txt<br>
+            echo "===== PLAYWRIGHT =====" >> ~/playwright-environment.txt<br>
+            playwright --version >> ~/playwright-environment.txt<br>
+            playwright install --list >> ~/playwright-environment.txt<br>
+            echo "===== DISPLAY =====" >> ~/playwright-environment.txt<br>
+            echo "DISPLAY=$DISPLAY" >> ~/playwright-environment.txt<br>
+            echo "XDG_SESSION_TYPE=$XDG_SESSION_TYPE" >> ~/playwright-environment.txt
+          </div>
+        </div>
+
+        <p>El resultado queda almacenado en:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            ~/playwright-environment.txt
+          </div>
+        </div>
+
+        <p>Este archivo permite proporcionar a otra persona o a una IA una descripción técnica reproducible del entorno: sistema operativo, usuario, Python, Playwright, navegadores y sesión gráfica.</p>
+      </section>
+
+      <!-- ███████ RESULTADO FINAL ███████ -->
+      <section>
+        <h2>Resultado final</h2>
+        <p>Al completar el módulo no solamente tendremos Playwright instalado. Habremos construido y comprobado cada componente de la cadena de ejecución.</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            Debian<br>
+            └── Python<br>
+                └── venv<br>
+                    └── Playwright<br>
+                        └── Chromium<br>
+                            └── Entorno gráfico<br>
+                                └── Automatización
+          </div>
+        </div>
+
+        <p>La instalación termina cuando podemos demostrar que cada capa funciona, no simplemente cuando el paquete aparece instalado.</p>
+      </section>
+
+      <!-- ███████ PIE DEL TUTORIAL ███████ -->
+      <footer class="tutorial-footer">
+        <p>Publicado el 24 de agosto de 2026</p>
+        <p><a href="../index.html" style="color: var(--text-muted); text-decoration: underline;">← Volver al inicio</a></p>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer" role="contentinfo">
+    <p class="footer-brand">Terminal</p>
+    <p class="footer-copy">2026 Terminal — Recursos ASIR</p>
+  </footer>
+
+  <script nonce="terminal2026" src="../assets/js/utils.js"></script>
+  <script nonce="terminal2026" src="../assets/js/animations.js"></script>
+  <!-- El script de copiar ya está en utils.js, no hace falta duplicarlo -->
+
+</body>
+</html>

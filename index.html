@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -239,6 +238,10 @@
           <span class="function">ls</span> <span class="string">"./cursos/"</span>&nbsp;&nbsp;<span class="comment"># 2 cursos disponibles</span><br>
           <span class="function">ls</span> <span class="string">"./recursos/"</span>&nbsp;<span class="comment"># Herramientas y guias</span>
         </div>
+        <p style="color: var(--text-dim); font-size: var(--text-sm);">
+          Usa el menu de navegacion para explorar las diferentes secciones.
+          Cada curso tiene su propio acordeon con contenido detallado.
+        </p>
       </div>
     </details>
 
@@ -246,7 +249,48 @@
          ███████ ACORDEON: SECTION + ACTIVIDADES ███████
          ============================================================ -->
 
+         <!-- ACORDEON: CURSO A -->
+         <details itemscope itemtype="https://schema.org/Course" itemprop="hasCourseInstance">
+           <summary itemprop="name">Curso A — Automatización Web con Playwright</summary>
 
+           <!-- Segmento A -->
+           <div>
+             <meta itemprop="educationalLevel" content="Principiante">
+             <meta itemprop="inLanguage" content="es-ES">
+             <meta itemprop="courseCode" content="TERM-001">
+             <div class="status-bar" aria-label="Informacion del curso">
+               <span><span class="dot" aria-hidden="true"></span> 1 Modulo</span>
+               <span><span class="dot info" aria-hidden="true"></span> Nivel: Intermedio</span>
+               <span class="tag tag-info">En progreso</span>
+             </div>
+
+             <!-- Segmento B -->
+             <p class="prompt">cat ./playwright/descripcion.md</p>
+             <p itemprop="description" style="color: var(--text-muted); margin-top: var(--space-md); line-height: 1.8;">
+                 Curso práctico orientado a configurar un entorno profesional de Playwright sobre Debian Linux/Windows 10.
+                 La unidad cubre la instalación de Python, aislamiento mediante venv, instalación de Playwright,
+                 navegadores gestionados, dependencias del sistema y validación final del entorno.
+             </p>
+
+             <!-- Segmento C -->
+             <article class="course-card">
+                 <h3><a href="posts/c1-unit1.html">Unidad 01 — Instalación y Configuración en Debian Linux</a></h3>
+               <p>
+                   Instalación completa de Playwright con Python en Debian Linux. Se configura un entorno virtual aislado,
+                   se instalan las dependencias necesarias del sistema y los navegadores gestionados por Playwright, y se valida la ejecución gráfica
+                   de Chromium.
+               </p>
+               <div style="margin-top: var(--space-sm);">
+                 <span class="tag">bash</span><span class="tag">linux</span><span class="tag">terminal</span><span class="tag">GUI</span>
+               </div>
+             </article>
+
+            <!-- Footer Cards units -->
+             <p style="color: var(--text-dim); font-size: var(--text-sm); margin-top: var(--space-md);">
+                 // futuros modulos adicionales muy pronto
+             </p>
+           </div>
+         </details>
 
     <!-- ============================================================
          ███████ ACORDEON: ACERCA DE MI (No tocar) ███████
