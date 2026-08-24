@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;">
+
+  <title>Prácticas básicas de Playwright con Python | Terminal</title>
+  <meta name="description" content="Prácticas básicas de automatización web con Playwright y Python en Debian Linux.">
+  <link rel="canonical" href="https://terminal.dev/tutoriales/playwright-practicas-python.html">
+  <meta name="theme-color" content="#050505">
+
+  <meta property="og:title" content="Prácticas básicas de Playwright con Python | Terminal">
+  <meta property="og:description" content="Tres ejercicios prácticos para comprender navegación, localizadores, validaciones y formularios con Playwright y Python.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://terminal.dev/tutoriales/playwright-practicas-python.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/effects.css">
+</head>
+<body>
+
+  <!-- ═══ NAVEGACION ═══ -->
+  <header class="navbar" role="banner">
+    <nav class="nav-container" aria-label="Navegacion principal">
+      <a href="../index.html" class="nav-brand">Terminal</a>
+      <button class="nav-toggle" id="nav-toggle-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu" type="button">[&lt;&gt;]</button>
+      <ul class="nav-links" id="nav-menu" role="menubar">
+        <li role="none"><a href="../index.html" role="menuitem">Home</a></li>
+
+        <!-- ███████ DROPDOWN CURSO A ███████ -->
+        <li role="none" class="dropdown">
+          <a href="#" role="menuitem">CURSO A</a>
+          <ul class="dropdown-menu">
+              <li><a href="c1-unit1.html">Actividad 1</a></li>
+              <li><a href="c1-unit3.html">Actividad 3</a></li>
+          </ul>
+        </li>
+
+        <!-- <li role="none"><a href="#" role="menuitem">#</a></li> -->
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ═══ ASIDE STICKY (información de sistema) ═══ -->
+  <aside class="sticky-aside" role="complementary" aria-label="Información del sistema">
+    <div class="sticky-aside-inner">
+      <div class="sticky-header">
+        <span class="sticky-title">[system]</span>
+        <span class="sticky-status">
+          <span class="dot-green"></span> online
+        </span>
+      </div>
+      <ul class="sticky-list">
+        <li><span class="sticky-label">uptime</span> <span id="uptime">0d 0h 0m</span></li>
+        <li><span class="sticky-label">users</span> <span id="users">1</span></li>
+        <li><span class="sticky-label">load</span> <span id="load">0.00</span></li>
+        <li><span class="sticky-label">memory</span> <span id="memory">128MB</span></li>
+      </ul>
+      <div class="sticky-divider"></div>
+      <ul class="sticky-list">
+        <li><a href="../index.html">↳ home</a></li>
+        <li><a href="#seccion-1">↳ índice tutorial</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- ═══ CONTENIDO PRINCIPAL ═══ -->
+  <main class="tutorial-wrapper" role="main">
+
+    <!-- ███████ INDICE STICKY ███████ -->
+    <aside class="toc-sidebar">
+      <nav class="toc-container">
+        <h3>Índice</h3>
+        <ul class="toc-list">
+          <li><a href="#seccion-1">1. Qué vamos a practicar</a></li>
+          <li><a href="#seccion-2">2. Ejercicio 1: navegación y validación</a></li>
+          <li><a href="#seccion-3">3. Analizar el error del ejercicio 1</a></li>
+          <li><a href="#seccion-4">4. Ejercicio 2: localizar elementos</a></li>
+          <li><a href="#seccion-5">5. Analizar el localizador</a></li>
+          <li><a href="#seccion-6">6. Ejercicio 3: formularios</a></li>
+          <li><a href="#seccion-7">7. Flujo mental de Playwright</a></li>
+          <li><a href="#seccion-8">8. Qué hemos aprendido</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- ███████ CONTENIDO PRINCIPAL ███████ -->
+    <article class="tutorial-content">
+
+      <!-- ▶️ ENCABEZADO -->
+      <header class="tutorial-header">
+        <h1 class="hero-title" style="font-size: var(--text-2xl);">Prácticas básicas de Playwright con Python</h1>
+        <div class="status-bar">
+          <span><span class="dot info"></span> 24/08/2026</span>
+          <span><span class="tag">Práctica</span></span>
+          <span><span class="tag tag-info">Nivel: Intermedio</span></span>
+        </div>
+        <p style="color: var(--text-muted); font-size: var(--text-lg); margin-top: var(--space-md);">
+          Tres ejercicios progresivos para comprender cómo Playwright abre un navegador, navega por una página, localiza elementos, interactúa con ellos y valida resultados mediante Python.
+        </p>
+      </header>
+
+      <!-- ███████ SECCION 1 ███████ -->
+      <section id="seccion-1">
+        <h2>1. Qué vamos a practicar</h2>
+
+        <p>Ya tenemos preparado el entorno de ejecución: Debian 13, Python 3.13, un entorno virtual y Playwright 1.62.0 con Chromium instalado.</p>
+
+        <p>Ahora dejamos de comprobar solamente que Playwright funciona y empezamos a utilizarlo como herramienta de automatización.</p>
+
+        <p>La progresión de las prácticas será deliberadamente sencilla:</p>
+
+        <ul class="terminal-list">
+          <li>Abrir una página y comprobar información de ella.</li>
+          <li>Localizar elementos dentro del DOM.</li>
+          <li>Interactuar con un formulario y validar su contenido.</li>
+        </ul>
+
+        <p>La idea fundamental es aprender a razonar cada automatización antes de escribir código. Primero identificamos qué queremos comprobar o manipular y después buscamos el elemento adecuado dentro de la página.</p>
+
+        <p>El modelo mental básico será:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            Navegador<br>
+            └── Página<br>
+                └── Elementos<br>
+                    └── Localizar<br>
+                        └── Interactuar<br>
+                            └── Validar
+          </div>
+        </div>
+
+        <p>Esta cadena es la base de prácticamente cualquier automatización web con Playwright.</p>
+      </section>
+
+      <!-- ███████ SECCION 2 ███████ -->
+      <section id="seccion-2">
+        <h2>2. Ejercicio 1: navegación y validación</h2>
+
+        <p>El primer ejercicio responde a una pregunta muy sencilla: ¿podemos abrir una página, leer información de ella y comprobar que el resultado es el esperado?</p>
+
+        <p>Comenzamos importando la API síncrona de Playwright:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            <span class="comment"># Importamos la API síncrona de Playwright.</span><br>
+            <span class="comment"># Nos permite ejecutar las operaciones de forma secuencial.</span><br>
+            from playwright.sync_api import sync_playwright<br>
+            <br>
+            <span class="comment"># Iniciamos Playwright.</span><br>
+            with sync_playwright() as p:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Lanzamos Chromium en modo headless.</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;browser = p.chromium.launch(headless=True)<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Creamos una nueva página.</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;page = browser.new_page()<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Navegamos hasta Google.</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;page.goto("https://google.com")<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Obtenemos el título de la página.</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;print("Titulo:", page.title())<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Localizamos el elemento h1 y obtenemos su texto.</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;print("H1:", page.locator("h1").inner_text())<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Comprobamos que el título obtenido coincide con el esperado.</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;assert page.title() == "Google"<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Comprobamos que el h1 contiene el texto esperado.</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;assert page.locator("h1").inner_text() == "Antes de ir a Google"<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Si ninguna validación falló, mostramos que la prueba terminó correctamente.</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;print("Test 1 Ok")<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Cerramos el navegador.</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;browser.close()
+          </div>
+        </div>
+
+        <p>La primera operación importante es <strong>goto()</strong>. Su función es ordenar al navegador que navegue hasta una URL.</p>
+
+        <p>Después utilizamos <strong>page.title()</strong> para obtener el título HTML de la página.</p>
+
+        <p>Para obtener contenido del DOM utilizamos un <strong>locator</strong>. En este caso:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            page.locator("h1")
+          </div>
+        </div>
+
+        <p>Esto no significa que Playwright esté buscando visualmente el texto. Estamos indicando que queremos localizar elementos HTML cuyo selector CSS sea <strong>h1</strong>.</p>
+
+        <p>Finalmente utilizamos <strong>assert</strong>. Esta instrucción convierte nuestra expectativa en una validación automática.</p>
+
+        <p>Si la condición es verdadera, la ejecución continúa. Si es falsa, Python lanza un <strong>AssertionError</strong> y la prueba falla.</p>
+      </section>
+
+      <!-- ███████ SECCION 3 ███████ -->
+      <section id="seccion-3">
+        <h2>3. Analizar el error del ejercicio 1</h2>
+
+        <p>Durante la práctica cometimos deliberadamente dos errores diferentes y ambos son importantes porque enseñan conceptos fundamentales.</p>
+
+        <p>El primero fue escribir:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            page.tittle()
+          </div>
+        </div>
+
+        <p>El método correcto es:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            page.title()
+          </div>
+        </div>
+
+        <p>El error <strong>AttributeError</strong> apareció porque el objeto <strong>Page</strong> no posee ningún método llamado <strong>tittle()</strong>. Python incluso indicó que probablemente queríamos utilizar <strong>title()</strong>.</p>
+
+        <p>Después corregimos el método, pero dejamos una expectativa incorrecta:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            assert page.title() == "google.com"
+          </div>
+        </div>
+
+        <p>El navegador devolvía:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            Google
+          </div>
+        </div>
+
+        <p>Por tanto, Python evaluó:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            "Google" == "google.com"
+          </div>
+        </div>
+
+        <p>El resultado es <strong>False</strong>, por lo que <strong>assert</strong> provocó un <strong>AssertionError</strong>.</p>
+
+        <p>Esto nos enseña una diferencia fundamental: Playwright puede estar funcionando perfectamente y aun así nuestra prueba puede fallar porque la expectativa escrita por nosotros es incorrecta.</p>
+
+        <p>El razonamiento correcto es siempre:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            Resultado real → ¿Qué devuelve la página?<br>
+            Resultado esperado → ¿Qué debería devolver?<br>
+            Validación → ¿Son iguales?
+          </div>
+        </div>
+      </section>
+
+      <!-- ███████ SECCION 4 ███████ -->
+      <section id="seccion-4">
+        <h2>4. Ejercicio 2: localizar elementos</h2>
+
+        <p>En el segundo ejercicio cambiamos el objetivo. Ya no queremos comprobar solamente información de la página. Ahora queremos encontrar un elemento concreto dentro del DOM.</p>
+
+        <p>Utilizamos TikTok como página de prueba y buscamos el elemento relacionado con el inicio de sesión.</p>
+
+        <p>El concepto fundamental es <strong>locator</strong>.</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            login = page.get_by_text("Log in")
+          </div>
+        </div>
+
+        <p>En este caso estamos indicando a Playwright que localice elementos cuyo contenido textual sea <strong>Log in</strong>.</p>
+
+        <p>Después podemos preguntar cuántos elementos coinciden con ese localizador:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            print("Login encontrado:", login.count())
+          </div>
+        </div>
+
+        <p>Durante la prueba vimos que TikTok tenía varios elementos que coincidían con ese texto. El resultado fue:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            Login encontrado: 4
+          </div>
+        </div>
+
+        <p>Eso demuestra que el localizador encontró elementos reales dentro del DOM.</p>
+
+        <p>La validación utilizada fue:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            assert login.count() &gt; 0
+          </div>
+        </div>
+
+        <p>La condición significa: debe existir al menos un elemento que coincida con nuestro localizador.</p>
+
+        <p>También comprobamos qué elementos podía leer Playwright utilizando:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            print(page.locator("body").all_inner_texts())
+          </div>
+        </div>
+
+        <p>Esto nos permitió observar que la página realmente contenía varios textos relacionados con <strong>Log in</strong>.</p>
+
+        <p>La prueba completa quedó conceptualmente así:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            <span class="comment"># Abrimos TikTok.</span><br>
+            page.goto("https://www.tiktok.com")<br>
+            <br>
+            <span class="comment"># Buscamos elementos cuyo texto sea "Log in".</span><br>
+            login = page.get_by_text("Log in")<br>
+            <br>
+            <span class="comment"># Mostramos cuántos elementos coinciden.</span><br>
+            print("Login encontrado:", login.count())<br>
+            <br>
+            <span class="comment"># Validamos que exista al menos uno.</span><br>
+            assert login.count() &gt; 0<br>
+            <br>
+            <span class="comment"># Indicamos que el ejercicio terminó correctamente.</span><br>
+            print("Test 2 - elemento encontrado")
+          </div>
+        </div>
+      </section>
+
+      <!-- ███████ SECCION 5 ███████ -->
+      <section id="seccion-5">
+        <h2>5. Analizar el localizador</h2>
+
+        <p>Durante la práctica intentamos reutilizar el mismo criterio sobre Google.</p>
+
+        <p>El problema fue que nuestra búsqueda estaba basada en el texto:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            page.get_by_text("Log in")
+          </div>
+        </div>
+
+        <p>Google utiliza otro texto para ese elemento en nuestra sesión:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            Iniciar sesión
+          </div>
+        </div>
+
+        <p>Por eso el resultado fue cero coincidencias.</p>
+
+        <p>Esto es importante porque un localizador no busca nuestra intención. Busca exactamente el criterio que le proporcionamos.</p>
+
+        <p>Por tanto, antes de automatizar debemos inspeccionar la página y determinar qué atributo, texto, rol o estructura identifica realmente al elemento.</p>
+
+        <p>El razonamiento debe comenzar siempre por la página:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            ¿Qué elemento necesito?<br>
+            ↓<br>
+            ¿Cómo está identificado en el DOM?<br>
+            ↓<br>
+            ¿Qué locator representa mejor esa identificación?<br>
+            ↓<br>
+            ¿Existe realmente?<br>
+            ↓<br>
+            ¿Puedo interactuar con él?
+          </div>
+        </div>
+      </section>
+
+      <!-- ███████ SECCION 6 ███████ -->
+      <section id="seccion-6">
+        <h2>6. Ejercicio 3: formularios</h2>
+
+        <p>El tercer ejercicio introduce interacción. Ya no solamente observamos la página: modificamos el estado de un elemento.</p>
+
+        <p>Utilizamos el buscador de Google.</p>
+
+        <p>Primero localizamos el campo de búsqueda:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            buscador = page.locator("textarea[name='q']")
+          </div>
+        </div>
+
+        <p>El selector combina dos criterios: el elemento HTML <strong>textarea</strong> y el atributo <strong>name="q"</strong>.</p>
+
+        <p>Una vez localizado podemos introducir información mediante <strong>fill()</strong>:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            buscador.fill("Playwright Python")
+          </div>
+        </div>
+
+        <p>Después comprobamos qué valor tiene realmente el campo utilizando <strong>input_value()</strong>:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            print("Texto introducido:", buscador.input_value())
+          </div>
+        </div>
+
+        <p>Finalmente convertimos esa comprobación en una validación automática:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            assert buscador.input_value() == "Playwright Python"
+          </div>
+        </div>
+
+        <p>El script completo quedó así:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            <span class="comment"># Importamos la API síncrona de Playwright.</span><br>
+            from playwright.sync_api import sync_playwright<br>
+            <br>
+            <span class="comment"># Iniciamos Playwright.</span><br>
+            with sync_playwright() as p:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Lanzamos Chromium en modo headless.</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;browser = p.chromium.launch(headless=True)<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Creamos una nueva página.</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;page = browser.new_page()<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Navegamos hasta Google.</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;page.goto("https://www.google.com")<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Localizamos el campo de búsqueda.</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;buscador = page.locator("textarea[name='q']")<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Introducimos texto en el campo.</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;buscador.fill("Playwright Python")<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Leemos el valor actual del campo.</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;print("Texto introducido:", buscador.input_value())<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Validamos que el valor sea exactamente el esperado.</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;assert buscador.input_value() == "Playwright Python"<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Confirmamos que la prueba terminó correctamente.</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;print("Test 3 - formulario OK")<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment"># Cerramos el navegador.</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;browser.close()
+          </div>
+        </div>
+
+        <p>El resultado obtenido fue:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            Texto introducido: Playwright Python<br>
+            Test 3 - formulario OK
+          </div>
+        </div>
+
+        <p>Con este ejercicio ya tenemos las tres operaciones fundamentales: localizar, interactuar y validar.</p>
+      </section>
+
+      <!-- ███████ SECCION 7 ███████ -->
+      <section id="seccion-7">
+        <h2>7. Flujo mental de Playwright</h2>
+
+        <p>Los tres ejercicios permiten construir un procedimiento de razonamiento que podemos reutilizar en automatizaciones más complejas.</p>
+
+        <p>No comenzamos escribiendo código. Primero analizamos qué queremos conseguir.</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            1. Abrir la página<br>
+            ↓<br>
+            2. Identificar el elemento<br>
+            ↓<br>
+            3. Elegir un locator fiable<br>
+            ↓<br>
+            4. Ejecutar una acción<br>
+            ↓<br>
+            5. Obtener el resultado<br>
+            ↓<br>
+            6. Compararlo con lo esperado<br>
+            ↓<br>
+            7. Determinar si la prueba pasa o falla
+          </div>
+        </div>
+
+        <p>En términos de Playwright, este flujo se traduce normalmente en:</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            page.goto("URL")<br>
+            elemento = page.locator("selector")<br>
+            elemento.fill("valor")<br>
+            resultado = elemento.input_value()<br>
+            assert resultado == "valor"
+          </div>
+        </div>
+
+        <p>El código es solamente la representación final del razonamiento. La parte importante es saber qué elemento necesitamos, cómo identificarlo y qué resultado esperamos obtener.</p>
+      </section>
+
+      <!-- ███████ SECCION 8 ███████ -->
+      <section id="seccion-8">
+        <h2>8. Qué hemos aprendido</h2>
+
+        <p>En estas tres prácticas hemos construido una primera base real de automatización web con Playwright.</p>
+
+        <ul class="terminal-list">
+          <li><strong>sync_playwright()</strong>: inicia la API síncrona de Playwright.</li>
+          <li><strong>p.chromium.launch()</strong>: inicia Chromium.</li>
+          <li><strong>browser.new_page()</strong>: crea una página.</li>
+          <li><strong>page.goto()</strong>: navega hacia una URL.</li>
+          <li><strong>page.title()</strong>: obtiene el título de la página.</li>
+          <li><strong>page.locator()</strong>: localiza elementos mediante selectores.</li>
+          <li><strong>get_by_text()</strong>: localiza elementos mediante contenido textual.</li>
+          <li><strong>count()</strong>: cuenta coincidencias de un localizador.</li>
+          <li><strong>fill()</strong>: introduce contenido en un campo.</li>
+          <li><strong>input_value()</strong>: obtiene el valor actual de un campo.</li>
+          <li><strong>assert</strong>: convierte una expectativa en una validación automática.</li>
+        </ul>
+
+        <p>También aprendimos algo igual de importante: un error de automatización no significa necesariamente que Playwright esté roto.</p>
+
+        <p>Puede fallar el selector, puede ser incorrecta la expectativa o simplemente podemos haber escrito mal el nombre de un método.</p>
+
+        <p>La prueba debe analizarse siempre desde el resultado real que devuelve la aplicación.</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            Playwright funciona<br>
+            ↓<br>
+            El navegador funciona<br>
+            ↓<br>
+            La página carga<br>
+            ↓<br>
+            Localizamos el elemento<br>
+            ↓<br>
+            Interactuamos con él<br>
+            ↓<br>
+            Validamos el resultado
+          </div>
+        </div>
+
+        <p>Esta es la base sobre la que posteriormente podremos construir pruebas de autenticación, navegación, formularios complejos, scraping controlado, validaciones de interfaces y suites completas de testing E2E.</p>
+      </section>
+
+      <!-- ███████ RESULTADO FINAL ███████ -->
+      <section>
+        <h2>Resultado final</h2>
+
+        <p>Los tres ejercicios forman una progresión deliberada: primero observamos una página, después encontramos elementos y finalmente interactuamos con ellos.</p>
+
+        <div class="code-block-wrapper">
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+          <div class="code-block">
+            EJERCICIO 1<br>
+            Navegar → Leer → Validar<br>
+            <br>
+            EJERCICIO 2<br>
+            Navegar → Localizar → Comprobar existencia<br>
+            <br>
+            EJERCICIO 3<br>
+            Navegar → Localizar → Interactuar → Leer → Validar
+          </div>
+        </div>
+
+        <p>Con esto ya tenemos el fundamento necesario para pasar de pruebas simples a automatizaciones reales. La siguiente complejidad no consiste en aprender comandos al azar, sino en aprender a construir localizadores robustos y flujos de interacción fiables.</p>
+      </section>
+
+      <!-- ███████ PIE DEL TUTORIAL ███████ -->
+      <footer class="tutorial-footer">
+        <p>Publicado el 24 de agosto de 2026</p>
+        <p><a href="../index.html" style="color: var(--text-muted); text-decoration: underline;">← Volver al inicio</a></p>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer" role="contentinfo">
+    <p class="footer-brand">Terminal</p>
+    <p class="footer-copy">2026 Terminal — Recursos ASIR</p>
+  </footer>
+
+  <script nonce="terminal2026" src="../assets/js/utils.js"></script>
+  <script nonce="terminal2026" src="../assets/js/animations.js"></script>
+  <!-- El script de copiar ya está en utils.js, no hace falta duplicarlo -->
+
+</body>
+</html>

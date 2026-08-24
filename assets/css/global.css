@@ -903,3 +903,257 @@ body {
   background-attachment: fixed;
   */
 }
+
+/* ============================================================
+   MEJORAS DE ESTRUCTURA PARA CHEAT SHEET
+   ============================================================ */
+
+/* ─── CONTENEDOR PRINCIPAL ─── */
+.cheatsheet-wrapper {
+  padding: var(--space-xl) var(--space-md);
+  max-width: 1200px; /* más ancho para grids */
+  margin: 0 auto;
+}
+
+/* ─── SECCIONES ─── */
+.cheat-section {
+  margin-bottom: var(--space-2xl);
+  padding-bottom: var(--space-xl);
+  border-bottom: var(--border-width) solid var(--border-secondary);
+}
+
+.cheat-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.cheat-section h2 {
+  font-family: var(--font-title);
+  font-size: var(--text-xl);
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+  letter-spacing: 1px;
+}
+
+.cheat-desc {
+  color: var(--text-muted);
+  font-size: var(--text-base);
+  margin-bottom: var(--space-lg);
+  line-height: 1.7;
+}
+
+/* ─── GRID DE TARJETAS ─── */
+.cheat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-md);
+}
+
+/* ─── TARJETA INDIVIDUAL ─── */
+.cheat-card {
+  background-color: var(--bg-surface);
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--border-radius);
+  padding: var(--space-lg);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.cheat-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: var(--glow-soft), 0 4px 20px rgba(0,255,136,0.05);
+  transform: translateY(-3px);
+}
+
+/* ─── CABECERA DE TARJETA ─── */
+.cheat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--space-xs);
+  border-bottom: var(--border-width) solid var(--border-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.cheat-command {
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  font-weight: bold;
+  color: var(--text-primary);
+  word-break: break-all;
+}
+
+.cheat-tag {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-dim);
+  background: var(--bg-primary);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius);
+  border: var(--border-width) solid var(--border-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: var(--space-sm);
+}
+
+/* ─── DESCRIPCIÓN ─── */
+.cheat-card p {
+  color: var(--text-body);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+}
+
+/* ─── EJEMPLO ─── */
+.cheat-example {
+  background-color: var(--bg-primary);
+  border: var(--border-width) solid var(--border-secondary);
+  border-radius: var(--border-radius);
+  padding: var(--space-sm) var(--space-md);
+  margin-top: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.cheat-example-label {
+  color: var(--text-dim);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cheat-example code {
+  color: var(--accent-info);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  background: transparent;
+  padding: 0;
+  border: none;
+}
+
+/* ─── TABLA ─── */
+.cheat-table-wrapper {
+  overflow-x: auto;
+  border: var(--border-width) solid var(--border-primary);
+  border-radius: var(--border-radius);
+  margin: var(--space-lg) 0;
+  background: var(--bg-surface);
+}
+
+.cheat-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  min-width: 600px;
+}
+
+.cheat-table thead {
+  background-color: var(--bg-primary);
+  border-bottom: var(--border-width) solid var(--border-primary);
+}
+
+.cheat-table th {
+  text-align: left;
+  padding: var(--space-md) var(--space-md);
+  color: var(--text-primary);
+  font-family: var(--font-title);
+  font-size: var(--text-xs);
+  font-weight: normal;
+  letter-spacing: 1px;
+}
+
+.cheat-table td {
+  padding: var(--space-sm) var(--space-md);
+  color: var(--text-body);
+  border-bottom: var(--border-width) solid var(--border-secondary);
+  vertical-align: top;
+}
+
+.cheat-table tr:last-child td {
+  border-bottom: none;
+}
+
+.cheat-table td code {
+  color: var(--accent-info);
+  font-family: var(--font-mono);
+  background: var(--bg-primary);
+  padding: 0 var(--space-xs);
+  border-radius: var(--border-radius);
+}
+
+.cheat-table tr:hover td {
+  background-color: rgba(0, 255, 136, 0.03);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .cheatsheet-wrapper {
+    padding: var(--space-md);
+  }
+
+  .cheat-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .cheat-card {
+    padding: var(--space-md);
+  }
+
+  .cheat-command {
+    font-size: var(--text-sm);
+  }
+
+  .cheat-table {
+    font-size: var(--text-xs);
+  }
+
+  .cheat-table th,
+  .cheat-table td {
+    padding: var(--space-xs) var(--space-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .cheat-card-header {
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .cheat-tag {
+    font-size: 0.6rem;
+  }
+}
+
+/* ─── MEJORA DE LEGIBILIDAD PARA TÍTULOS DE SECCIÓN ─── */
+.cheat-section h2 {
+  scroll-margin-top: calc(var(--nav-height) + var(--space-lg));
+}
+
+/* ─── ESPACIO EXTRA ENTRE TARJETAS Y EJEMPLOS ─── */
+.cheat-card .cheat-example {
+  margin-top: var(--space-sm);
+}
+
+/* ─── BORDE MÁS SUAVE Y SOMBRA PARA TARJETAS ─── */
+.cheat-card {
+  border-color: var(--border-secondary);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.cheat-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 6px 24px rgba(0,255,136,0.08);
+}

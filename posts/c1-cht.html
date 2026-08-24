@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'nonce-terminal2026'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; frame-ancestors 'none';">
+
+  <title>Playwright Python | Cheat Sheet | Terminal</title>
+  <meta name="description" content="Cheat Sheet de Playwright para Python: CLI, navegación, selectores, interacción, formularios, aserciones, páginas y navegador.">
+  <link rel="canonical" href="https://terminal.dev/cheatsheet/playwright-python.html">
+  <meta name="theme-color" content="#050505">
+
+  <meta property="og:title" content="Playwright Python | Cheat Sheet | Terminal">
+  <meta property="og:description" content="Referencia rápida de Playwright para Python y sus operaciones fundamentales de automatización web.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://terminal.dev/cheatsheet/playwright-python.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/cheatsheet.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+</head>
+<body>
+
+  <!-- ═══ NAVEGACION ═══ -->
+  <header class="navbar" role="banner">
+    <nav class="nav-container" aria-label="Navegacion principal">
+      <a href="../index.html" class="nav-brand">Terminal</a>
+      <button class="nav-toggle" id="nav-toggle-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu" type="button">[&lt;&gt;]</button>
+      <ul class="nav-links" id="nav-menu" role="menubar">
+        <li role="none"><a href="../index.html" role="menuitem">Home</a></li>
+        <li role="none"><a href="acerca.html" role="menuitem">Acerca</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ═══ CONTENIDO PRINCIPAL ═══ -->
+  <main class="cheatsheet-wrapper fade-in" role="main">
+
+    <article>
+
+      <!-- ███████ ENCABEZADO ███████ -->
+      <header class="cheatsheet-header fade-scale-in">
+        <h1 class="hero-title" style="font-size: var(--text-2xl);">Playwright Python</h1>
+        <p style="color: var(--text-muted); font-size: var(--text-lg); margin-top: var(--space-md);">
+          Biblioteca de referencia para automatización web con Playwright y Python.
+        </p>
+        <div class="status-bar">
+          <span><span class="dot info"></span> 24/08/2026</span>
+          <span><span class="tag">Playwright</span></span>
+          <span><span class="tag tag-info">Python</span></span>
+        </div>
+      </header>
+
+      <!-- ███████ CATEGORIA 1 ███████ -->
+      <section class="cheat-section fade-in">a
+        <h2>1. CLI de Playwright</h2>
+        <p class="cheat-desc">Comandos fundamentales para instalar, comprobar y administrar Playwright y sus navegadores.</p>
+
+        <div class="cheat-grid">
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">pip install playwright</span>
+              <span class="cheat-tag">Instalación</span>
+            </div>
+            <p class="cheat-desc">Instala la biblioteca de Playwright para Python dentro del entorno virtual activo.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>pip install playwright</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">playwright --version</span>
+              <span class="cheat-tag">Diagnóstico</span>
+            </div>
+            <p class="cheat-desc">Muestra la versión de Playwright instalada y permite comprobar que el ejecutable está disponible.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>playwright --version</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">playwright install chromium</span>
+              <span class="cheat-tag">Browser</span>
+            </div>
+            <p class="cheat-desc">Descarga la versión de Chromium compatible con la versión de Playwright instalada.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>playwright install chromium</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">playwright install --list</span>
+              <span class="cheat-tag">Browser</span>
+            </div>
+            <p class="cheat-desc">Lista los navegadores administrados actualmente por Playwright.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>playwright install --list</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">playwright install --dry-run</span>
+              <span class="cheat-tag">Diagnóstico</span>
+            </div>
+            <p class="cheat-desc">Muestra qué componentes instalaría Playwright sin ejecutar la instalación.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>playwright install --dry-run</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">playwright install-deps chromium</span>
+              <span class="cheat-tag">Linux</span>
+            </div>
+            <p class="cheat-desc">Instala las dependencias nativas del sistema necesarias para ejecutar Chromium.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>sudo playwright install-deps chromium</code>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ███████ CATEGORIA 2 ███████ -->
+      <section class="cheat-section fade-in">
+        <h2>2. Estructura básica de Playwright</h2>
+        <p class="cheat-desc">La cadena fundamental de ejecución: Playwright → Browser → Page → Locator.</p>
+
+        <div class="cheat-grid">
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">sync_playwright</span>
+              <span class="cheat-tag">API</span>
+            </div>
+            <p class="cheat-desc">Importa la API síncrona de Playwright para Python.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>from playwright.sync_api import sync_playwright</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">sync_playwright()</span>
+              <span class="cheat-tag">Runtime</span>
+            </div>
+            <p class="cheat-desc">Crea el objeto que permite acceder a los navegadores controlados por Playwright.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>with sync_playwright() as p:</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">p.chromium</span>
+              <span class="cheat-tag">Browser</span>
+            </div>
+            <p class="cheat-desc">Selecciona el motor Chromium administrado por Playwright.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>browser = p.chromium.launch()</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">browser.new_page()</span>
+              <span class="cheat-tag">Page</span>
+            </div>
+            <p class="cheat-desc">Crea una nueva página o pestaña dentro del navegador.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page = browser.new_page()</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">browser.close()</span>
+              <span class="cheat-tag">Browser</span>
+            </div>
+            <p class="cheat-desc">Cierra el navegador y libera sus recursos.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>browser.close()</code>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ███████ CATEGORIA 3 ███████ -->
+      <section class="cheat-section fade-in">
+        <h2>3. Lanzamiento del navegador</h2>
+        <p class="cheat-desc">Configuración básica del proceso Chromium.</p>
+
+        <div class="cheat-grid">
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">launch()</span>
+              <span class="cheat-tag">Browser</span>
+            </div>
+            <p class="cheat-desc">Inicia una instancia del navegador.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>browser = p.chromium.launch()</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">headless=True</span>
+              <span class="cheat-tag">Modo</span>
+            </div>
+            <p class="cheat-desc">Ejecuta el navegador sin mostrar una ventana gráfica. Es el modo habitual para servidores.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>browser = p.chromium.launch(headless=True)</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">headless=False</span>
+              <span class="cheat-tag">Modo</span>
+            </div>
+            <p class="cheat-desc">Ejecuta Chromium con interfaz gráfica visible cuando existe una sesión gráfica disponible.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>browser = p.chromium.launch(headless=False)</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">args=[]</span>
+              <span class="cheat-tag">Configuración</span>
+            </div>
+            <p class="cheat-desc">Permite pasar argumentos directamente al proceso Chromium.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>p.chromium.launch(args=["--disable-gpu"])</code>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ███████ CATEGORIA 4 ███████ -->
+      <section class="cheat-section fade-in">
+        <h2>4. Navegación</h2>
+        <p class="cheat-desc">Operaciones fundamentales para desplazarse por una aplicación web.</p>
+
+        <div class="cheat-grid">
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">page.goto()</span>
+              <span class="cheat-tag">Navegación</span>
+            </div>
+            <p class="cheat-desc">Navega la página actual hacia una URL.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.goto("https://google.com")</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">page.reload()</span>
+              <span class="cheat-tag">Navegación</span>
+            </div>
+            <p class="cheat-desc">Recarga la página actual.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.reload()</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">page.go_back()</span>
+              <span class="cheat-tag">Historial</span>
+            </div>
+            <p class="cheat-desc">Retrocede una posición en el historial del navegador.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.go_back()</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">page.go_forward()</span>
+              <span class="cheat-tag">Historial</span>
+            </div>
+            <p class="cheat-desc">Avanza una posición en el historial del navegador.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.go_forward()</code>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ███████ CATEGORIA 5 ███████ -->
+      <section class="cheat-section fade-in">
+        <h2>5. Información de la página</h2>
+        <p class="cheat-desc">Métodos para inspeccionar el estado básico de la página.</p>
+
+        <div class="cheat-grid">
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">page.title()</span>
+              <span class="cheat-tag">Lectura</span>
+            </div>
+            <p class="cheat-desc">Obtiene el contenido del elemento HTML title de la página.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>titulo = page.title()</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">page.url</span>
+              <span class="cheat-tag">Lectura</span>
+            </div>
+            <p class="cheat-desc">Devuelve la URL actual de la página.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>print(page.url)</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">locator()</span>
+              <span class="cheat-tag">DOM</span>
+            </div>
+            <p class="cheat-desc">Crea un Locator para localizar uno o varios elementos del DOM.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>login = page.locator("text=Log in")</code>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ███████ CATEGORIA 6 ███████ -->
+      <section class="cheat-section fade-in">
+        <h2>6. Selectores y Locator</h2>
+        <p class="cheat-desc">Los locators son la base para encontrar elementos de forma fiable.</p>
+
+        <div class="cheat-grid">
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">locator("css")</span>
+              <span class="cheat-tag">CSS</span>
+            </div>
+            <p class="cheat-desc">Localiza elementos utilizando selectores CSS.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.locator("textarea[name='q']")</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">get_by_role()</span>
+              <span class="cheat-tag">ARIA</span>
+            </div>
+            <p class="cheat-desc">Localiza elementos utilizando su rol accesible. Es uno de los métodos preferidos para tests robustos.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.get_by_role("button", name="Log in")</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">get_by_text()</span>
+              <span class="cheat-tag">Texto</span>
+            </div>
+            <p class="cheat-desc">Localiza elementos utilizando el texto visible que contienen.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.get_by_text("Log in")</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">get_by_label()</span>
+              <span class="cheat-tag">Formulario</span>
+            </div>
+            <p class="cheat-desc">Localiza un control de formulario asociado a una etiqueta accesible.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.get_by_label("Email")</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">get_by_placeholder()</span>
+              <span class="cheat-tag">Formulario</span>
+            </div>
+            <p class="cheat-desc">Localiza un campo mediante su atributo placeholder.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.get_by_placeholder("Buscar")</code>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ███████ CATEGORIA 7 ███████ -->
+      <section class="cheat-section fade-in">
+        <h2>7. Interacción con elementos</h2>
+        <p class="cheat-desc">Operaciones esenciales para interactuar con la interfaz web.</p>
+
+        <div class="cheat-grid">
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">click()</span>
+              <span class="cheat-tag">Interacción</span>
+            </div>
+            <p class="cheat-desc">Hace clic sobre el elemento localizado.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.get_by_role("button", name="Enviar").click()</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">fill()</span>
+              <span class="cheat-tag">Input</span>
+            </div>
+            <p class="cheat-desc">Rellena un campo de entrada reemplazando su contenido existente.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>buscador.fill("Playwright Python")</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">press()</span>
+              <span class="cheat-tag">Teclado</span>
+            </div>
+            <p class="cheat-desc">Envía una pulsación de teclado al elemento.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>buscador.press("Enter")</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">hover()</span>
+              <span class="cheat-tag">Interacción</span>
+            </div>
+            <p class="cheat-desc">Mueve el puntero sobre el elemento.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.locator(".menu").hover()</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">check()</span>
+              <span class="cheat-tag">Formulario</span>
+            </div>
+            <p class="cheat-desc">Marca un checkbox o radio button cuando corresponde.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.get_by_role("checkbox").check()</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">uncheck()</span>
+              <span class="cheat-tag">Formulario</span>
+            </div>
+            <p class="cheat-desc">Desmarca un checkbox.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.get_by_role("checkbox").uncheck()</code>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ███████ CATEGORIA 8 ███████ -->
+      <section class="cheat-section fade-in">
+        <h2>8. Lectura de elementos</h2>
+        <p class="cheat-desc">Métodos para obtener información desde el DOM y los controles de formulario.</p>
+
+        <div class="cheat-grid">
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">inner_text()</span>
+              <span class="cheat-tag">Texto</span>
+            </div>
+            <p class="cheat-desc">Obtiene el texto visible de un elemento.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>texto = page.locator("h1").inner_text()</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">input_value()</span>
+              <span class="cheat-tag">Input</span>
+            </div>
+            <p class="cheat-desc">Obtiene el valor actual de un campo de formulario.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>valor = buscador.input_value()</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">get_attribute()</span>
+              <span class="cheat-tag">DOM</span>
+            </div>
+            <p class="cheat-desc">Obtiene el valor de un atributo HTML del elemento.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>href = link.get_attribute("href")</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">count()</span>
+              <span class="cheat-tag">Locator</span>
+            </div>
+            <p class="cheat-desc">Cuenta cuántos elementos coinciden con el locator.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>cantidad = login.count()</code>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ███████ CATEGORIA 9 ███████ -->
+      <section class="cheat-section fade-in">
+        <h2>9. Aserciones y validación</h2>
+        <p class="cheat-desc">Las aserciones convierten una automatización en una prueba verificable.</p>
+
+        <div class="cheat-grid">
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">assert</span>
+              <span class="cheat-tag">Python</span>
+            </div>
+            <p class="cheat-desc">Comprueba que una condición sea verdadera. Si falla, Python genera AssertionError.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>assert page.title() == "Google"</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">expect()</span>
+              <span class="cheat-tag">Playwright</span>
+            </div>
+            <p class="cheat-desc">API de aserciones de Playwright con espera automática para condiciones sobre elementos.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>expect(page).to_have_title("Google")</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">to_have_text()</span>
+              <span class="cheat-tag">Expect</span>
+            </div>
+            <p class="cheat-desc">Comprueba que un locator contiene el texto esperado.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>expect(page.locator("h1")).to_have_text("Google")</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">to_be_visible()</span>
+              <span class="cheat-tag">Expect</span>
+            </div>
+            <p class="cheat-desc">Comprueba que el elemento es visible para el usuario.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>expect(login).to_be_visible()</code>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ███████ CATEGORIA 10 ███████ -->
+      <section class="cheat-section fade-in">
+        <h2>10. Formularios</h2>
+        <p class="cheat-desc">Operaciones fundamentales para automatizar formularios web.</p>
+
+        <div class="cheat-grid">
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">fill()</span>
+              <span class="cheat-tag">Input</span>
+            </div>
+            <p class="cheat-desc">Introduce texto en un input, textarea u otro control compatible.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.locator("input[name='email']").fill("user@example.com")</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">select_option()</span>
+              <span class="cheat-tag">Select</span>
+            </div>
+            <p class="cheat-desc">Selecciona una opción de un elemento HTML select.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.locator("select").select_option("es")</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">input_value()</span>
+              <span class="cheat-tag">Validación</span>
+            </div>
+            <p class="cheat-desc">Permite verificar posteriormente qué valor quedó introducido en el campo.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>assert campo.input_value() == "texto"</code>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ███████ CATEGORIA 11 ███████ -->
+      <section class="cheat-section fade-in">
+        <h2>11. Esperas</h2>
+        <p class="cheat-desc">Playwright utiliza auto-waiting. Las esperas explícitas deben reservarse para casos concretos.</p>
+
+        <div class="cheat-grid">
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">wait_for()</span>
+              <span class="cheat-tag">Locator</span>
+            </div>
+            <p class="cheat-desc">Espera hasta que el locator alcanza el estado solicitado.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.locator("#resultado").wait_for()</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">wait_for_timeout()</span>
+              <span class="cheat-tag">Tiempo</span>
+            </div>
+            <p class="cheat-desc">Espera una cantidad fija de milisegundos. Útil para demostraciones o depuración, no como estrategia normal de sincronización.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.wait_for_timeout(3000)</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">wait_for_url()</span>
+              <span class="cheat-tag">Navegación</span>
+            </div>
+            <p class="cheat-desc">Espera hasta que la URL de la página coincida con el patrón especificado.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.wait_for_url("**/dashboard")</code>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ███████ CATEGORIA 12 ███████ -->
+      <section class="cheat-section fade-in">
+        <h2>12. Contextos y páginas</h2>
+        <p class="cheat-desc">El contexto permite aislar sesiones, cookies, almacenamiento y configuración del navegador.</p>
+
+        <div class="cheat-grid">
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">browser.new_context()</span>
+              <span class="cheat-tag">Context</span>
+            </div>
+            <p class="cheat-desc">Crea un contexto de navegador aislado del resto de sesiones.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>context = browser.new_context()</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">context.new_page()</span>
+              <span class="cheat-tag">Page</span>
+            </div>
+            <p class="cheat-desc">Crea una página dentro de un contexto determinado.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page = context.new_page()</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">context.close()</span>
+              <span class="cheat-tag">Context</span>
+            </div>
+            <p class="cheat-desc">Cierra el contexto y libera sus recursos asociados.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>context.close()</code>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ███████ CATEGORIA 13 ███████ -->
+      <section class="cheat-section fade-in">
+        <h2>13. Estructura Python mínima</h2>
+        <p class="cheat-desc">Plantilla que debemos ser capaces de escribir de memoria para una automatización básica.</p>
+
+        <div class="cheat-table-wrapper">
+          <table class="cheat-table">
+            <thead>
+              <tr>
+                <th>Elemento</th>
+                <th>Función</th>
+                <th>Ejemplo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>from playwright.sync_api import sync_playwright</code></td>
+                <td>Importa la API síncrona.</td>
+                <td><code>from playwright.sync_api import sync_playwright</code></td>
+              </tr>
+              <tr>
+                <td><code>with sync_playwright() as p:</code></td>
+                <td>Inicializa y gestiona Playwright.</td>
+                <td><code>with sync_playwright() as p:</code></td>
+              </tr>
+              <tr>
+                <td><code>p.chromium.launch()</code></td>
+                <td>Inicia Chromium.</td>
+                <td><code>browser = p.chromium.launch(headless=True)</code></td>
+              </tr>
+              <tr>
+                <td><code>browser.new_page()</code></td>
+                <td>Crea una página.</td>
+                <td><code>page = browser.new_page()</code></td>
+              </tr>
+              <tr>
+                <td><code>page.goto()</code></td>
+                <td>Navega a una URL.</td>
+                <td><code>page.goto("https://google.com")</code></td>
+              </tr>
+              <tr>
+                <td><code>page.locator()</code></td>
+                <td>Localiza un elemento.</td>
+                <td><code>campo = page.locator("textarea[name='q']")</code></td>
+              </tr>
+              <tr>
+                <td><code>locator.fill()</code></td>
+                <td>Introduce texto.</td>
+                <td><code>campo.fill("Playwright Python")</code></td>
+              </tr>
+              <tr>
+                <td><code>locator.click()</code></td>
+                <td>Interactúa con un elemento.</td>
+                <td><code>campo.click()</code></td>
+              </tr>
+              <tr>
+                <td><code>locator.inner_text()</code></td>
+                <td>Lee texto visible.</td>
+                <td><code>texto = campo.inner_text()</code></td>
+              </tr>
+              <tr>
+                <td><code>locator.input_value()</code></td>
+                <td>Lee el valor de un input.</td>
+                <td><code>valor = campo.input_value()</code></td>
+              </tr>
+              <tr>
+                <td><code>assert</code></td>
+                <td>Valida una condición.</td>
+                <td><code>assert valor == "Playwright Python"</code></td>
+              </tr>
+              <tr>
+                <td><code>browser.close()</code></td>
+                <td>Cierra Chromium.</td>
+                <td><code>browser.close()</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ███████ CATEGORIA 14 ███████ -->
+      <section class="cheat-section fade-in">
+        <h2>14. Plantilla de automatización</h2>
+        <p class="cheat-desc">Estructura mínima reutilizable para comenzar una prueba.</p>
+
+        <div class="cheat-grid">
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">plantilla</span>
+              <span class="cheat-tag">Python</span>
+            </div>
+            <p class="cheat-desc">Esqueleto completo de una automatización síncrona básica.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>from playwright.sync_api import sync_playwright<br><br>with sync_playwright() as p:<br>    browser = p.chromium.launch(headless=True)<br>    page = browser.new_page()<br>    page.goto("https://example.com")<br>    print(page.title())<br>    browser.close()</code>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ███████ CATEGORIA 15 ███████ -->
+      <section class="cheat-section fade-in">
+        <h2>15. Terminal + Python</h2>
+        <p class="cheat-desc">Comandos y conceptos que forman el flujo completo de trabajo.</p>
+
+        <div class="cheat-table-wrapper">
+          <table class="cheat-table">
+            <thead>
+              <tr>
+                <th>Fase</th>
+                <th>Terminal</th>
+                <th>Python</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Activar entorno</td>
+                <td><code>source ~/playwright-env/bin/activate</code></td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>Instalar biblioteca</td>
+                <td><code>pip install playwright</code></td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>Instalar navegador</td>
+                <td><code>playwright install chromium</code></td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>Crear automatización</td>
+                <td><code>nano playwright-env/scripts/ej.py</code></td>
+                <td><code>from playwright.sync_api import sync_playwright</code></td>
+              </tr>
+              <tr>
+                <td>Ejecutar</td>
+                <td><code>python playwright-env/scripts/ej.py</code></td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>Navegar</td>
+                <td>—</td>
+                <td><code>page.goto("https://google.com")</code></td>
+              </tr>
+              <tr>
+                <td>Localizar</td>
+                <td>—</td>
+                <td><code>page.locator("textarea[name='q']")</code></td>
+              </tr>
+              <tr>
+                <td>Interactuar</td>
+                <td>—</td>
+                <td><code>locator.fill("texto")</code></td>
+              </tr>
+              <tr>
+                <td>Verificar</td>
+                <td>—</td>
+                <td><code>assert locator.input_value() == "texto"</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ███████ CATEGORIA 16 ███████ -->
+      <section class="cheat-section fade-in">
+        <h2>16. Reglas mentales fundamentales</h2>
+        <p class="cheat-desc">La secuencia que conviene interiorizar para razonar cualquier automatización.</p>
+
+        <div class="cheat-grid">
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">1. goto</span>
+              <span class="cheat-tag">Flujo</span>
+            </div>
+            <p class="cheat-desc">Primero lleva el navegador al recurso que quieres automatizar.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>page.goto("https://example.com")</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">2. locate</span>
+              <span class="cheat-tag">Flujo</span>
+            </div>
+            <p class="cheat-desc">Después identifica exactamente qué elemento del DOM necesitas controlar.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>campo = page.locator("input[name='q']")</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">3. interact</span>
+              <span class="cheat-tag">Flujo</span>
+            </div>
+            <p class="cheat-desc">Realiza la acción necesaria sobre el elemento localizado.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>campo.fill("Playwright")</code>
+            </div>
+          </div>
+
+          <div class="cheat-card card-hover">
+            <div class="cheat-card-header">
+              <span class="cheat-command">4. verify</span>
+              <span class="cheat-tag">Flujo</span>
+            </div>
+            <p class="cheat-desc">Comprueba que la aplicación produjo el resultado esperado.</p>
+            <div class="cheat-example">
+              <span class="cheat-example-label">Ejemplo:</span>
+              <code>assert campo.input_value() == "Playwright"</code>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ███████ PIE ███████ -->
+      <footer class="cheatsheet-footer fade-in">
+        <p><a href="../index.html" style="color: var(--text-muted); text-decoration: underline;">← Volver al inicio</a></p>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer" role="contentinfo">
+    <p class="footer-brand">Terminal</p>
+    <p class="footer-copy">2026 Terminal — Recursos ASIR</p>
+  </footer>
+
+  <script nonce="terminal2026" src="../assets/js/utils.js"></script>
+  <script nonce="terminal2026" src="../assets/js/animations.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;">
+
+  <title>Automatización de inicio de sesión con Playwright y Python | Terminal</title>
+  <meta name="description" content="Práctica de automatización de inicio de sesión con Playwright y Python utilizando la interfaz gráfica de TikTok.">
+  <link rel="canonical" href="https://terminal.dev/tutoriales/playwright-login-python.html">
+  <meta name="theme-color" content="#050505">
+
+  <meta property="og:title" content="Automatización de inicio de sesión con Playwright y Python | Terminal">
+  <meta property="og:description" content="Práctica de automatización de un flujo de inicio de sesión con Playwright y Python.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://terminal.dev/tutoriales/playwright-login-python.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/effects.css">
+</head>
+
+<body>
+
+  <!-- ═══ NAVEGACION ═══ -->
+  <header class="navbar" role="banner">
+    <nav class="nav-container" aria-label="Navegacion principal">
+
+      <a href="../index.html" class="nav-brand">Terminal</a>
+
+      <button
+        class="nav-toggle"
+        id="nav-toggle-btn"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+        type="button"
+      >
+        [&lt;&gt;]
+      </button>
+
+      <ul class="nav-links" id="nav-menu" role="menubar">
+
+        <li role="none">
+          <a href="../index.html" role="menuitem">Home</a>
+        </li>
+
+        <li role="none" class="dropdown">
+          <a href="#" role="menuitem">CURSO A</a>
+
+          <ul class="dropdown-menu">
+            <li><a href="c1-unit1.html">Actividad 1</a></li>
+            <li><a href="c1-unit2.html">Actividad 2</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </nav>
+  </header>
+
+
+  <!-- ═══ ASIDE SISTEMA ═══ -->
+  <aside
+    class="sticky-aside"
+    role="complementary"
+    aria-label="Información del sistema"
+  >
+
+    <div class="sticky-aside-inner">
+
+      <div class="sticky-header">
+
+        <span class="sticky-title">[system]</span>
+
+        <span class="sticky-status">
+          <span class="dot-green"></span>
+          online
+        </span>
+
+      </div>
+
+      <ul class="sticky-list">
+
+        <li>
+          <span class="sticky-label">uptime</span>
+          <span id="uptime">0d 0h 0m</span>
+        </li>
+
+        <li>
+          <span class="sticky-label">users</span>
+          <span id="users">1</span>
+        </li>
+
+        <li>
+          <span class="sticky-label">load</span>
+          <span id="load">0.00</span>
+        </li>
+
+        <li>
+          <span class="sticky-label">memory</span>
+          <span id="memory">128MB</span>
+        </li>
+
+      </ul>
+
+      <div class="sticky-divider"></div>
+
+      <ul class="sticky-list">
+
+        <li>
+          <a href="../index.html">↳ home</a>
+        </li>
+
+        <li>
+          <a href="#seccion-1">↳ índice tutorial</a>
+        </li>
+
+      </ul>
+
+    </div>
+
+  </aside>
+
+
+  <!-- ═══ CONTENIDO PRINCIPAL ═══ -->
+  <main class="tutorial-wrapper" role="main">
+
+
+    <!-- ═══ INDICE ═══ -->
+    <aside class="toc-sidebar">
+
+      <nav class="toc-container">
+
+        <h3>Índice</h3>
+
+        <ul class="toc-list">
+
+          <li>
+            <a href="#seccion-1">
+              1. Qué vamos a practicar
+            </a>
+          </li>
+
+          <li>
+            <a href="#seccion-2">
+              2. Preparar la interfaz
+            </a>
+          </li>
+
+          <li>
+            <a href="#seccion-3">
+              3. Localizar Login
+            </a>
+          </li>
+
+          <li>
+            <a href="#seccion-4">
+              4. Seleccionar teléfono o correo
+            </a>
+          </li>
+
+          <li>
+            <a href="#seccion-5">
+              5. Seleccionar email o username
+            </a>
+          </li>
+
+          <li>
+            <a href="#seccion-6">
+              6. Localizar las credenciales
+            </a>
+          </li>
+
+          <li>
+            <a href="#seccion-7">
+              7. Introducir las credenciales
+            </a>
+          </li>
+
+          <li>
+            <a href="#seccion-8">
+              8. Activar y pulsar Login
+            </a>
+          </li>
+
+          <li>
+            <a href="#seccion-9">
+              9. Errores encontrados
+            </a>
+          </li>
+
+          <li>
+            <a href="#seccion-10">
+              10. Flujo mental
+            </a>
+          </li>
+
+          <li>
+            <a href="#seccion-11">
+              11. Qué hemos aprendido
+            </a>
+          </li>
+
+          <li>
+            <a href="#seccion-12">
+              12. Resultado final
+            </a>
+          </li>
+
+        </ul>
+
+      </nav>
+
+    </aside>
+
+
+    <!-- ═══ ARTICULO ═══ -->
+    <article class="tutorial-content">
+
+
+      <!-- ═══ HEADER ═══ -->
+      <header class="tutorial-header">
+
+        <h1
+          class="hero-title"
+          style="font-size: var(--text-2xl);"
+        >
+          Automatización de inicio de sesión con Playwright y Python
+        </h1>
+
+        <div class="status-bar">
+
+          <span>
+            <span class="dot info"></span>
+            24/08/2026
+          </span>
+
+          <span>
+            <span class="tag">Práctica</span>
+          </span>
+
+          <span>
+            <span class="tag tag-info">
+              Nivel: Intermedio
+            </span>
+          </span>
+
+        </div>
+
+        <p
+          style="color: var(--text-muted); font-size: var(--text-lg); margin-top: var(--space-md);"
+        >
+          Automatización de un flujo real de inicio de sesión con Playwright y Python utilizando una interfaz gráfica. La práctica introduce sincronización, localizadores, elementos superpuestos, formularios y validación de acciones.
+        </p>
+
+      </header>
+
+
+      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- SECCION 1 -->
+      <!-- ═══════════════════════════════════════════════════ -->
+
+      <section id="seccion-1">
+
+        <h2>1. Qué vamos a practicar</h2>
+
+        <p>
+          En las prácticas anteriores utilizamos Playwright para navegar por páginas, localizar elementos, interactuar con formularios y realizar validaciones sencillas.
+        </p>
+
+        <p>
+          En esta práctica aumentamos la complejidad y construimos un flujo completo de autenticación utilizando la interfaz gráfica del navegador.
+        </p>
+
+        <p>
+          El objetivo es automatizar el proceso desde que se abre la página hasta que se pulsa el botón de inicio de sesión después de introducir las credenciales.
+        </p>
+
+        <p>
+          El flujo que construiremos será:
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+            Abrir TikTok
+            <br>
+            ↓
+            <br>
+            Cerrar "Got it"
+            <br>
+            ↓
+            <br>
+            Rechazar cookies opcionales
+            <br>
+            ↓
+            <br>
+            Pulsar "Log in"
+            <br>
+            ↓
+            <br>
+            "Use phone or email"
+            <br>
+            ↓
+            <br>
+            "Use email or username"
+            <br>
+            ↓
+            <br>
+            Localizar credenciales
+            <br>
+            ↓
+            <br>
+            Introducir usuario y contraseña
+            <br>
+            ↓
+            <br>
+            Esperar activación del botón
+            <br>
+            ↓
+            <br>
+            Pulsar "Log in"
+          </div>
+
+        </div>
+
+        <p>
+          La diferencia respecto a las prácticas anteriores es que ahora varios elementos de la interfaz pueden cambiar de estado durante la ejecución.
+        </p>
+
+        <p>
+          Por tanto, no basta con localizar un elemento. También tenemos que comprobar que está preparado para recibir una interacción.
+        </p>
+
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- SECCION 2 -->
+      <!-- ═══════════════════════════════════════════════════ -->
+
+      <section id="seccion-2">
+
+        <h2>2. Preparar la interfaz</h2>
+
+        <p>
+          Comenzamos utilizando la API síncrona de Playwright y lanzando Chromium con interfaz gráfica.
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            <span class="comment">
+              # Importamos Playwright.
+            </span>
+            <br>
+
+            from playwright.sync_api import sync_playwright
+            <br>
+            <br>
+
+            <span class="comment">
+              # Credenciales que se establecerán antes de ejecutar la práctica.
+            </span>
+            <br>
+
+            USERNAME = "TU_USUARIO_O_CORREO"
+            <br>
+
+            PASSWORD = "TU_CONTRASEÑA"
+            <br>
+            <br>
+
+            <span class="comment">
+              # URL de la aplicación.
+            </span>
+            <br>
+
+            URL = "https://www.tiktok.com"
+            <br>
+            <br>
+
+            with sync_playwright() as p:
+            <br>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            browser = p.chromium.launch(headless=False)
+            <br>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            page = browser.new_page()
+            <br>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            page.goto(URL)
+            <br>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            page.wait_for_timeout(3000)
+
+          </div>
+
+        </div>
+
+        <p>
+          Utilizamos <strong>headless=False</strong> porque esta práctica está orientada a observar el comportamiento de la interfaz gráfica mientras Playwright ejecuta las acciones.
+        </p>
+
+        <p>
+          Una vez cargada la página debemos eliminar los elementos que pueden impedir la interacción con el contenido principal.
+        </p>
+
+        <p>
+          El primero fue el mensaje <strong>Got it</strong>.
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            got_it = page.get_by_role(
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"button",
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;name="Got it"
+            <br>
+            )
+            <br>
+            <br>
+
+            if got_it.count() &gt; 0:
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;got_it.first.click()
+
+          </div>
+
+        </div>
+
+        <p>
+          La condición evita que el script falle cuando ese elemento no aparece.
+        </p>
+
+        <p>
+          Después hacemos lo mismo con el banner de cookies.
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            cookies = page.get_by_role(
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"button",
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;name="Decline optional cookies"
+            <br>
+            )
+            <br>
+            <br>
+
+            if cookies.count() &gt; 0:
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;cookies.first.click()
+
+          </div>
+
+        </div>
+
+        <p>
+          Esto resultó especialmente importante porque durante las pruebas comprobamos que el banner podía interceptar los eventos de puntero destinados a otros elementos.
+        </p>
+
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- SECCION 3 -->
+      <!-- ═══════════════════════════════════════════════════ -->
+
+      <section id="seccion-3">
+
+        <h2>3. Localizar Login</h2>
+
+        <p>
+          Una vez preparada la interfaz buscamos el botón de inicio de sesión.
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            login = page.get_by_role(
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"button",
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;name="Log in"
+            <br>
+            )
+            <br>
+            <br>
+
+            print(
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Log in encontrados:",
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;login.count()
+            <br>
+            )
+            <br>
+            <br>
+
+            assert login.count() &gt; 0
+            <br>
+            <br>
+
+            login.first.click()
+
+          </div>
+
+        </div>
+
+        <p>
+          Durante las pruebas observamos que podía existir más de un elemento con el mismo nombre.
+        </p>
+
+        <p>
+          Por eso primero comprobamos el número de coincidencias mediante <strong>count()</strong> y después utilizamos <strong>first</strong> para seleccionar la primera coincidencia.
+        </p>
+
+        <p>
+          El resultado obtenido durante una ejecución correcta fue:
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            Log in encontrados: 2
+
+          </div>
+
+        </div>
+
+        <p>
+          Después de pulsar el botón esperamos a que aparezca el panel de autenticación.
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            page.wait_for_timeout(3000)
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- SECCION 4 -->
+      <!-- ═══════════════════════════════════════════════════ -->
+
+      <section id="seccion-4">
+
+        <h2>4. Seleccionar teléfono o correo</h2>
+
+        <p>
+          El primer panel de autenticación no muestra directamente el formulario de usuario y contraseña.
+        </p>
+
+        <p>
+          Debemos seleccionar la opción:
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            Use phone or email
+
+          </div>
+
+        </div>
+
+        <p>
+          Utilizamos un localizador basado en el texto visible.
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            phone_email = page.get_by_text(
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Use phone or email",
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;exact=True
+            <br>
+            )
+            <br>
+            <br>
+
+            print(
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Use phone or email encontrados:",
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;phone_email.count()
+            <br>
+            )
+            <br>
+            <br>
+
+            assert phone_email.count() &gt; 0
+            <br>
+            <br>
+
+            phone_email.first.click()
+
+          </div>
+
+        </div>
+
+        <p>
+          El resultado correcto fue:
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            Use phone or email encontrados: 1
+            <br>
+            Test 5 - Use phone or email pulsado
+
+          </div>
+
+        </div>
+
+        <p>
+          Después de esta acción aparecen los campos asociados a teléfono, código y contraseña.
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            Inputs encontrados: 4
+            <br>
+            0 type: search placeholder: Search
+            <br>
+            1 type: text placeholder: Phone number
+            <br>
+            2 type: text placeholder: Enter 6-digit code
+            <br>
+            3 type: password placeholder: None
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- SECCION 5 -->
+      <!-- ═══════════════════════════════════════════════════ -->
+
+      <section id="seccion-5">
+
+        <h2>5. Seleccionar email o username</h2>
+
+        <p>
+          Como el objetivo de esta práctica es utilizar usuario o correo electrónico y contraseña, debemos cambiar el método de autenticación.
+        </p>
+
+        <p>
+          La interfaz proporciona la opción:
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            Use email or username
+
+          </div>
+
+        </div>
+
+        <p>
+          La localizamos y comprobamos que realmente exista antes de pulsarla.
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            email_username = page.get_by_text(
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Use email or username",
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;exact=True
+            <br>
+            )
+            <br>
+            <br>
+
+            print(
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Use email or username encontrados:",
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;email_username.count()
+            <br>
+            )
+            <br>
+            <br>
+
+            assert email_username.count() &gt; 0
+            <br>
+            <br>
+
+            email_username.first.click()
+
+          </div>
+
+        </div>
+
+        <p>
+          La ejecución correcta produjo:
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            Use email or username encontrados: 1
+            <br>
+            Test 6 - Use email or username pulsado
+
+          </div>
+
+        </div>
+
+        <p>
+          Ahora la interfaz cambia y aparecen los campos que necesitamos.
+        </p>
+
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- SECCION 6 -->
+      <!-- ═══════════════════════════════════════════════════ -->
+
+      <section id="seccion-6">
+
+        <h2>6. Localizar las credenciales</h2>
+
+        <p>
+          Después de seleccionar el método correcto inspeccionamos los campos disponibles.
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            inputs = page.locator("input")
+            <br>
+            <br>
+
+            print(
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Inputs después de seleccionar email:",
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;inputs.count()
+            <br>
+            )
+            <br>
+            <br>
+
+            for i in range(inputs.count()):
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;element = inputs.nth(i)
+            <br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;print(
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i,
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"type:",
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;element.get_attribute("type"),
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"placeholder:",
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;element.get_attribute("placeholder")
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;)
+
+          </div>
+
+        </div>
+
+        <p>
+          El resultado fue:
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            Inputs después de seleccionar email: 3
+            <br>
+            0 type: search placeholder: Search
+            <br>
+            1 type: text placeholder: Email or username
+            <br>
+            2 type: password placeholder: Password
+
+          </div>
+
+        </div>
+
+        <p>
+          Esto nos permite distinguir el buscador general de la página de los dos campos pertenecientes al formulario de autenticación.
+        </p>
+
+        <p>
+          En lugar de depender de la posición numérica de los elementos, utilizamos sus atributos visibles.
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            username = page.get_by_placeholder(
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Email or username"
+            <br>
+            )
+            <br>
+            <br>
+
+            password = page.get_by_placeholder(
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"Password"
+            <br>
+            )
+
+          </div>
+
+        </div>
+
+        <p>
+          Esta estrategia es más clara que seleccionar simplemente el segundo y tercer <strong>input</strong>, porque expresa directamente qué campo queremos utilizar.
+        </p>
+
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- SECCION 7 -->
+      <!-- ═══════════════════════════════════════════════════ -->
+
+      <section id="seccion-7">
+
+        <h2>7. Introducir las credenciales</h2>
+
+        <p>
+          Las credenciales se mantienen como variables globales al principio del script.
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            USERNAME = "TU_USUARIO_O_CORREO"
+            <br>
+            PASSWORD = "TU_CONTRASEÑA"
+
+          </div>
+
+        </div>
+
+        <p>
+          De esta forma el flujo de automatización no necesita modificarse cada vez que cambiamos las credenciales utilizadas durante la práctica.
+        </p>
+
+        <p>
+          Utilizamos <strong>fill()</strong> para introducir los valores.
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            username.fill(USERNAME)
+            <br>
+            password.fill(PASSWORD)
+            <br>
+            <br>
+
+            print("Credenciales introducidas")
+
+          </div>
+
+        </div>
+
+        <p>
+          En la ejecución correcta obtuvimos:
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            Credenciales introducidas
+
+          </div>
+
+        </div>
+
+        <p>
+          En este punto todavía no pulsamos el botón. Primero debemos considerar el estado de la interfaz.
+        </p>
+
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- SECCION 8 -->
+      <!-- ═══════════════════════════════════════════════════ -->
+
+      <section id="seccion-8">
+
+        <h2>8. Activar y pulsar Login</h2>
+
+        <p>
+          Durante las pruebas encontramos un comportamiento importante: el botón <strong>Log in</strong> puede encontrarse inicialmente deshabilitado.
+        </p>
+
+        <p>
+          Después de introducir las credenciales, la interfaz necesita un pequeño intervalo para actualizar su estado y habilitar la acción.
+        </p>
+
+        <p>
+          Por eso el flujo final incorpora una espera de dos segundos después de rellenar los campos.
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            username.fill(USERNAME)
+            <br>
+            password.fill(PASSWORD)
+            <br>
+            <br>
+
+            print("Credenciales introducidas")
+            <br>
+            <br>
+
+            page.wait_for_timeout(2000)
+            <br>
+            <br>
+
+            login = page.get_by_role(
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"button",
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;name="Log in"
+            <br>
+            )
+            <br>
+            <br>
+
+            assert login.count() &gt; 0
+            <br>
+            <br>
+
+            login.last.click()
+            <br>
+            <br>
+
+            print("Test 7 - Login pulsado")
+
+          </div>
+
+        </div>
+
+        <p>
+          El resultado confirmado de la ejecución fue:
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            Log in encontrados: 2
+            <br>
+            Use phone or email encontrados: 1
+            <br>
+            Test 5 - Use phone or email pulsado
+            <br>
+            Use email or username encontrados: 1
+            <br>
+            Test 6 - Use email or username pulsado
+            <br>
+            Credenciales introducidas
+            <br>
+            Test 7 - Login pulsado
+
+          </div>
+
+        </div>
+
+        <p>
+          En este punto el flujo automatizado llegó correctamente hasta la acción final del formulario.
+        </p>
+
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- SECCION 9 -->
+      <!-- ═══════════════════════════════════════════════════ -->
+
+      <section id="seccion-9">
+
+        <h2>9. Errores encontrados durante la práctica</h2>
+
+        <p>
+          Esta práctica fue especialmente útil porque el flujo no funcionó correctamente en el primer intento.
+        </p>
+
+        <p>
+          Los errores permitieron identificar varios problemas habituales en automatización web.
+        </p>
+
+
+        <h3>9.1. El elemento existe pero no recibe el clic</h3>
+
+        <p>
+          En una de las ejecuciones Playwright encontró correctamente el botón <strong>Log in</strong>, pero el clic terminó en un <strong>TimeoutError</strong>.
+        </p>
+
+        <p>
+          El registro de Playwright indicaba que otro elemento estaba interceptando los eventos de puntero.
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            element is visible, enabled and stable
+            <br>
+            ...
+            <br>
+            intercepts pointer events
+
+          </div>
+
+        </div>
+
+        <p>
+          El problema no era el localizador. El elemento existía y Playwright podía encontrarlo. El problema era el estado de la interfaz: el banner de cookies todavía estaba interceptando los eventos.
+        </p>
+
+
+        <h3>9.2. El selector puede devolver cero elementos</h3>
+
+        <p>
+          También encontramos ejecuciones donde:
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            Log in encontrados: 0
+
+          </div>
+
+        </div>
+
+        <p>
+          y la validación:
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            assert login.count() &gt; 0
+
+          </div>
+
+        </div>
+
+        <p>
+          provocaba un <strong>AssertionError</strong>.
+        </p>
+
+        <p>
+          Esto demuestra por qué una automatización debe considerar el estado real de la página antes de asumir que un elemento siempre estará disponible inmediatamente.
+        </p>
+
+
+        <h3>9.3. El botón de Login cambia de estado</h3>
+
+        <p>
+          Otro comportamiento importante apareció al final del formulario.
+        </p>
+
+        <p>
+          El botón podía estar presente en el DOM pero todavía no estar preparado para ejecutar la acción porque las credenciales acababan de ser introducidas.
+        </p>
+
+        <p>
+          La solución utilizada en la práctica fue esperar dos segundos después de rellenar los campos antes de ejecutar el clic.
+        </p>
+
+
+        <h3>9.4. El idioma afecta al texto visible</h3>
+
+        <p>
+          Durante la inspección observamos que el botón podía mostrarse como <strong>Log in</strong>, aunque conceptualmente la acción fuera "Continuar" dependiendo del idioma de la interfaz.
+        </p>
+
+        <p>
+          Por ese motivo el selector utilizado durante nuestra ejecución se basó en el texto que Playwright estaba observando realmente:
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">python</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            page.get_by_role(
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;"button",
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;name="Log in"
+            <br>
+            )
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- SECCION 10 -->
+      <!-- ═══════════════════════════════════════════════════ -->
+
+      <section id="seccion-10">
+
+        <h2>10. Flujo mental de una automatización de login</h2>
+
+        <p>
+          Esta práctica introduce una idea importante: automatizar una interfaz no significa simplemente reproducir una secuencia de clics.
+        </p>
+
+        <p>
+          Cada acción depende del estado actual de la página.
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            Página cargada
+            <br>
+            ↓
+            <br>
+            ¿Existe "Got it"?
+            <br>
+            ↓
+            <br>
+            Eliminarlo si existe
+            <br>
+            ↓
+            <br>
+            ¿Existe banner de cookies?
+            <br>
+            ↓
+            <br>
+            Eliminarlo si existe
+            <br>
+            ↓
+            <br>
+            Localizar Login
+            <br>
+            ↓
+            <br>
+            Abrir autenticación
+            <br>
+            ↓
+            <br>
+            Seleccionar método
+            <br>
+            ↓
+            <br>
+            Localizar campos
+            <br>
+            ↓
+            <br>
+            Introducir datos
+            <br>
+            ↓
+            <br>
+            Esperar actualización del estado
+            <br>
+            ↓
+            <br>
+            Ejecutar Login
+
+          </div>
+
+        </div>
+
+        <p>
+          La diferencia respecto a un script que simplemente hace clics consiste en que cada paso se apoya en una condición observable de la interfaz.
+        </p>
+
+        <p>
+          El patrón general es:
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            Localizar
+            <br>
+            ↓
+            <br>
+            Comprobar
+            <br>
+            ↓
+            <br>
+            Interactuar
+            <br>
+            ↓
+            <br>
+            Esperar estado
+            <br>
+            ↓
+            <br>
+            Validar
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- SECCION 11 -->
+      <!-- ═══════════════════════════════════════════════════ -->
+
+      <section id="seccion-11">
+
+        <h2>11. Qué hemos aprendido</h2>
+
+        <p>
+          En esta práctica pasamos de automatizaciones sencillas a un flujo de interacción compuesto por múltiples estados.
+        </p>
+
+        <ul class="terminal-list">
+
+          <li>
+            <strong>headless=False</strong>: permite observar la ejecución mediante la interfaz gráfica.
+          </li>
+
+          <li>
+            <strong>get_by_role()</strong>: permite localizar elementos utilizando su rol accesible y nombre.
+          </li>
+
+          <li>
+            <strong>get_by_text()</strong>: permite localizar opciones mediante el texto visible.
+          </li>
+
+          <li>
+            <strong>get_by_placeholder()</strong>: permite localizar campos de formulario mediante su placeholder.
+          </li>
+
+          <li>
+            <strong>count()</strong>: permite conocer cuántos elementos coinciden con un locator.
+          </li>
+
+          <li>
+            <strong>first</strong> y <strong>last</strong>: permiten seleccionar una coincidencia concreta cuando existen varias.
+          </li>
+
+          <li>
+            <strong>fill()</strong>: permite introducir información en campos de formulario.
+          </li>
+
+          <li>
+            <strong>wait_for_timeout()</strong>: permite introducir una espera explícita durante una práctica controlada.
+          </li>
+
+          <li>
+            <strong>assert</strong>: permite convertir una condición esperada en una validación automática.
+          </li>
+
+        </ul>
+
+        <p>
+          También aprendimos que encontrar un elemento no significa necesariamente que podamos interactuar inmediatamente con él.
+        </p>
+
+        <p>
+          La página puede contener banners, overlays, diálogos u otros elementos que intercepten los eventos.
+        </p>
+
+        <p>
+          Por tanto, el análisis de una automatización debe considerar tanto el DOM como el estado visible de la interfaz.
+        </p>
+
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- SECCION 12 -->
+      <!-- ═══════════════════════════════════════════════════ -->
+
+      <section id="seccion-12">
+
+        <h2>12. Resultado final</h2>
+
+        <p>
+          La práctica terminó con el flujo completo ejecutándose correctamente hasta el envío del formulario de autenticación.
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            EJERCICIO 1
+            <br>
+            Abrir página → Preparar interfaz
+            <br>
+            <br>
+
+            EJERCICIO 2
+            <br>
+            Localizar → Pulsar Login
+            <br>
+            <br>
+
+            EJERCICIO 3
+            <br>
+            Seleccionar "Use phone or email"
+            <br>
+            <br>
+
+            EJERCICIO 4
+            <br>
+            Seleccionar "Use email or username"
+            <br>
+            <br>
+
+            EJERCICIO 5
+            <br>
+            Localizar Email or username + Password
+            <br>
+            <br>
+
+            EJERCICIO 6
+            <br>
+            Introducir credenciales
+            <br>
+            <br>
+
+            EJERCICIO 7
+            <br>
+            Esperar → Pulsar Login
+
+          </div>
+
+        </div>
+
+        <p>
+          El resultado final confirmado fue:
+        </p>
+
+        <div class="code-block-wrapper">
+
+          <div class="code-block-header">
+            <span class="code-lang">text</span>
+            <button class="copy-btn">[Copiar]</button>
+          </div>
+
+          <div class="code-block">
+
+            Log in encontrados: 2
+            <br>
+            Use phone or email encontrados: 1
+            <br>
+            Test 5 - Use phone or email pulsado
+            <br>
+            Use email or username encontrados: 1
+            <br>
+            Test 6 - Use email or username pulsado
+            <br>
+            Credenciales introducidas
+            <br>
+            Test 7 - Login pulsado
+
+          </div>
+
+        </div>
+
+        <p>
+          Con esta práctica ya no estamos trabajando únicamente con elementos aislados. Hemos construido un flujo de automatización dependiente del estado de una interfaz gráfica y hemos aprendido a diagnosticar por qué un elemento puede existir, pero no estar disponible para interacción.
+        </p>
+
+        <p>
+          El siguiente nivel consiste en sustituir las esperas arbitrarias por mecanismos de sincronización basados en estados reales de los elementos y comenzar a estructurar estas automatizaciones como pruebas E2E mantenibles.
+        </p>
+
+      </section>
+
+
+      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- FOOTER TUTORIAL -->
+      <!-- ═══════════════════════════════════════════════════ -->
+
+      <footer class="tutorial-footer">
+
+        <p>
+          Publicado el 24 de agosto de 2026
+        </p>
+
+        <p>
+          <a
+            href="../index.html"
+            style="color: var(--text-muted); text-decoration: underline;"
+          >
+            ← Volver al inicio
+          </a>
+        </p>
+
+      </footer>
+
+    </article>
+
+  </main>
+
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer" role="contentinfo">
+
+    <p class="footer-brand">
+      Terminal
+    </p>
+
+    <p class="footer-copy">
+      2026 Terminal — Recursos ASIR
+    </p>
+
+  </footer>
+
+
+  <script nonce="terminal2026" src="../assets/js/utils.js"></script>
+  <script nonce="terminal2026" src="../assets/js/animations.js"></script>
+
+</body>
+</html>
